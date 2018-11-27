@@ -1,8 +1,8 @@
-package fr.epsi.i5.medictionary.bdpm.config;
+package fr.epsi.i5.medictionary.database.bdpm.config;
 
-import fr.epsi.i5.medictionary.mapper.Separation;
-import fr.epsi.i5.medictionary.mapper.Mapper;
-import fr.epsi.i5.medictionary.utils.Util;
+import fr.epsi.i5.medictionary.database.mapper.Mapper;
+import fr.epsi.i5.medictionary.database.utils.Util;
+import fr.epsi.i5.medictionary.database.mapper.Separation;
 
 import javax.management.InvalidAttributeValueException;
 import javax.naming.directory.InvalidAttributeIdentifierException;

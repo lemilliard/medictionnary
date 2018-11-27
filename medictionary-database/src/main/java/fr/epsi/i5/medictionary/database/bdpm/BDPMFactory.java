@@ -1,11 +1,11 @@
-package fr.epsi.i5.medictionary.bdpm;
+package fr.epsi.i5.medictionary.database.bdpm;
 
-import fr.epsi.i5.medictionary.bdpm.config.Config;
-import fr.epsi.i5.medictionary.bdpm.config.Key;
-import fr.epsi.i5.medictionary.bdpm.config.Retriever;
-import fr.epsi.i5.medictionary.bdpm.object.*;
-import fr.epsi.i5.medictionary.mapper.Mapper;
-import fr.epsi.i5.medictionary.mapper.Separation;
+import fr.epsi.i5.medictionary.database.bdpm.config.Key;
+import fr.epsi.i5.medictionary.database.bdpm.object.*;
+import fr.epsi.i5.medictionary.database.bdpm.config.Config;
+import fr.epsi.i5.medictionary.database.bdpm.config.Retriever;
+import fr.epsi.i5.medictionary.database.mapper.Mapper;
+import fr.epsi.i5.medictionary.database.mapper.Separation;
 
 import java.util.List;
 

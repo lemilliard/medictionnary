@@ -1,4 +1,4 @@
-package fr.epsi.i5.medictionary.utils;
+package fr.epsi.i5.medictionary.database.utils;
 
 public class Util {
 

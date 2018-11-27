@@ -1,4 +1,4 @@
-package fr.epsi.i5.medictionary.mapper;
+package fr.epsi.i5.medictionary.database.mapper;
 
 public enum Separation {
 	SPACE(" "), //

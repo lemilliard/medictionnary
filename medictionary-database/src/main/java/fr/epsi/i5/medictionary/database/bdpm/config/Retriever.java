@@ -1,6 +1,6 @@
-package fr.epsi.i5.medictionary.bdpm.config;
+package fr.epsi.i5.medictionary.database.bdpm.config;
 
-import fr.epsi.i5.medictionary.utils.Util;
+import fr.epsi.i5.medictionary.database.utils.Util;
 
 import java.io.BufferedReader;
 import java.io.File;

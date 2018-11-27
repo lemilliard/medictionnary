@@ -1,4 +1,4 @@
-package fr.epsi.i5.medictionary.bdpm.object;
+package fr.epsi.i5.medictionary.database.bdpm.object;
 
 public class GroupeGenerique {
 

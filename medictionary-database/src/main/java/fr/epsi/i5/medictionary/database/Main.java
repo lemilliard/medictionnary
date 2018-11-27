@@ -1,18 +1,16 @@
-package fr.epsi.i5.medictionary;
+package fr.epsi.i5.medictionary.database;
 
-import fr.epsi.i5.medictionary.bdpm.config.Config;
-import fr.epsi.i5.medictionary.bdpm.object.Composition;
-import fr.epsi.i5.medictionary.bdpm.object.Specialite;
-import fr.epsi.i5.medictionary.mapper.Separation;
-import fr.epsi.i5.medictionary.utils.Util;
-import fr.epsi.i5.medictionary.bdpm.BDPMFactory;
+import fr.epsi.i5.medictionary.database.bdpm.BDPMFactory;
+import fr.epsi.i5.medictionary.database.bdpm.config.Config;
+import fr.epsi.i5.medictionary.database.bdpm.config.Key;
+import fr.epsi.i5.medictionary.database.bdpm.object.Composition;
+import fr.epsi.i5.medictionary.database.bdpm.object.Specialite;
+import fr.epsi.i5.medictionary.database.utils.Util;
+import fr.epsi.i5.medictionary.database.mapper.Separation;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static fr.epsi.i5.medictionary.bdpm.config.Key.REFRESH_DURATION;
-import static fr.epsi.i5.medictionary.bdpm.config.Key.REFRESH_SCALE;
 
 public class Main {
 
@@ -74,8 +72,8 @@ public class Main {
 	 */
 	private static void sleep() {
 		try {
-			String refreshScale = Config.getPropertyValue(REFRESH_SCALE);
-			String refreshDuration = Config.getPropertyValue(REFRESH_DURATION);
+			String refreshScale = Config.getPropertyValue(Key.REFRESH_SCALE);
+			String refreshDuration = Config.getPropertyValue(Key.REFRESH_DURATION);
 
 			TimeUnit.valueOf(refreshScale).sleep(Long.parseLong(refreshDuration));
 		} catch (InterruptedException e) {

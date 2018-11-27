@@ -1,6 +1,6 @@
-package fr.epsi.i5.medictionary.mapper;
+package fr.epsi.i5.medictionary.database.mapper;
 
-import fr.epsi.i5.medictionary.utils.Util;
+import fr.epsi.i5.medictionary.database.utils.Util;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

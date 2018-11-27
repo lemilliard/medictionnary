@@ -1,4 +1,4 @@
-package fr.epsi.i5.medictionary.bdpm.config;
+package fr.epsi.i5.medictionary.database.bdpm.config;
 
 import java.util.concurrent.TimeUnit;
 
