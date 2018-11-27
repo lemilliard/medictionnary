@@ -6,6 +6,13 @@
 
     <artifactId>medictionary-back-appli</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>1.5.9.RELEASE</version>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>fr.epsi.i5.medictionary</groupId>

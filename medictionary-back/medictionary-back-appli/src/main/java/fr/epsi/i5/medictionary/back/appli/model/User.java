@@ -1,4 +1,4 @@
-package fr.epsi.i5.medictionary.back.appli.dao;
+package fr.epsi.i5.medictionary.back.appli.model;
 
 import com.thomaskint.minidao.annotation.MDEntity;
 import com.thomaskint.minidao.annotation.MDField;
@@ -9,7 +9,7 @@ public class User {
 
 	@MDId
 	@MDField(fieldName = "id_user")
-	private Integer idUser;
+	public Integer idUser;
 
 	@MDField(fieldName = "login")
 	public String login;
