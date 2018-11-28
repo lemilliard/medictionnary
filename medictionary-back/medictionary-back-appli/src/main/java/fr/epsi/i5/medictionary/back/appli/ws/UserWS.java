@@ -1,8 +1,12 @@
 package fr.epsi.i5.medictionary.back.appli.ws;
 
+import com.thomaskint.minidao.enumeration.MDConditionLink;
+import com.thomaskint.minidao.enumeration.MDConditionOperator;
 import com.thomaskint.minidao.exception.MDException;
+import com.thomaskint.minidao.querybuilder.MDCondition;
 import fr.epsi.i5.medictionary.back.appli.Main;
 import fr.epsi.i5.medictionary.back.appli.model.User;
+import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,5 +48,16 @@ public class UserWS {
 	@DeleteMapping("/user/{id}")
 	public boolean deleteUserById(@PathVariable("id") int id) throws MDException {
 		return Main.miniDAO.delete().deleteEntityById(User.class, id);
+	}
+
+	@PostMapping("/user/login")
+	public User loginUser(@RequestBody User user) throws MDException {
+		User connectedUser = null;
+		if (user != null) {
+			MDCondition loginCondition = new MDCondition("login", MDConditionOperator.EQUAL, user.login);
+			MDCondition condition = new MDCondition("password", MDConditionOperator.EQUAL, user.password, MDConditionLink.AND, loginCondition);
+			connectedUser = Main.miniDAO.read().getEntityByCondition(User.class, condition);
+		}
+		return connectedUser;
 	}
 }
