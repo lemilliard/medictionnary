@@ -69,7 +69,7 @@ public class Decision {
 		return decisionTree;
 	}
 
-	public static Stack<String> decide(Allergy allergy, List<Symptom> symptoms) {
+	public static Stack<String> decide(Allergy allergy, List<Symptom> symptoms) throws MDException {
 		Stack<String> listMolecule = new Stack<String>();
 		HashMap<String, String> values = new HashMap<String, String>();
 
@@ -100,6 +100,8 @@ public class Decision {
 				}
 			}
 		}
+                
+                listMolecule = getCompatibles(listMolecule, allergy);
 
 		return listMolecule;
 	}
