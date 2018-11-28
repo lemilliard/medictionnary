@@ -8,9 +8,6 @@ import com.thomaskint.minidao.annotation.MDId;
 public class Symptom {
 
 	@MDId
-	@MDField(fieldName = "id_symptom")
-	public Integer idSymptom;
-
-	@MDField(fieldName = "name")
+	@MDField(fieldName = "name_symptom")
 	public String name;
 }
