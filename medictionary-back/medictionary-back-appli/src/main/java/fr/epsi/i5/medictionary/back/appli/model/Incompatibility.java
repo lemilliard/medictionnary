@@ -16,6 +16,6 @@ public class Incompatibility {
     @MDManyToOne(fieldName = "id_drug_one", targetFieldName = "id_drug", target = Drug.class, loadPolicy = MDLoadPolicy.HEAVY)
     public Drug drugOne;
 
-    @MDManyToOne(fieldName = "i_drug_two", targetFieldName = "id_drug", target = Drug.class, loadPolicy = MDLoadPolicy.HEAVY)
+    @MDManyToOne(fieldName = "id_drug_two", targetFieldName = "id_drug", target = Drug.class, loadPolicy = MDLoadPolicy.HEAVY)
     public Drug drugTwo;
 }

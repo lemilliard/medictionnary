@@ -7,7 +7,7 @@ import com.thomaskint.minidao.annotation.MDManyToOne;
 import com.thomaskint.minidao.enumeration.MDLoadPolicy;
 
 @MDEntity(tableName = "histo")
-public class Histo
+public class Histo {
 
         @MDId
         @MDField(fieldName = "id_histo")
@@ -17,5 +17,5 @@ public class Histo
         public Integer idUser;
 
         @MDManyToOne(fieldName = "id_prescription", targetFieldName = "id_prescription", target = Prescription.class, loadPolicy = MDLoadPolicy.HEAVY)
-        public Histo histo;
+        public Prescription prescription;
 }
