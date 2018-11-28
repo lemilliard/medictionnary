@@ -6,7 +6,7 @@ import com.thomaskint.minidao.annotation.MDId;
 import com.thomaskint.minidao.annotation.MDManyToOne;
 import com.thomaskint.minidao.enumeration.MDLoadPolicy;
 
-@MDEntity(tableName = "incomptability")
+@MDEntity(tableName = "incompatibility")
 public class Incompatibility {
 
     @MDId

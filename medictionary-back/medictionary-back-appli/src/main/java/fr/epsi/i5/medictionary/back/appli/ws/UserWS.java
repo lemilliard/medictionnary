@@ -27,14 +27,8 @@ public class UserWS {
 	}
 
 	@PostMapping("/user")
-	public User createUser(@RequestBody User user, HttpServletResponse response) throws MDException {
+	public User createUser(@RequestBody User user) throws MDException {
 		if (Main.miniDAO.create().createEntity(user) && user.idUser != null) {
-			Cookie cookie = new Cookie("idUser", user.idUser.toString());
-			cookie.setDomain("eportfolio.cgonline.fr");
-			cookie.setPath("Medictionary");
-			cookie.setHttpOnly(false);
-			cookie.setSecure(false);
-			response.addCookie(cookie);
 			return user;
 		}
 		return null;
@@ -59,19 +53,12 @@ public class UserWS {
 	}
 
 	@PostMapping("/user/login")
-	public User loginUser(@RequestBody User user, HttpServletResponse response) throws MDException {
+	public User loginUser(@RequestBody User user) throws MDException {
 		User connectedUser = null;
 		if (user != null) {
 			MDCondition loginCondition = new MDCondition("login", MDConditionOperator.EQUAL, user.login);
 			MDCondition condition = new MDCondition("password", MDConditionOperator.EQUAL, user.password, MDConditionLink.AND, loginCondition);
 			connectedUser = Main.miniDAO.read().getEntityByCondition(User.class, condition);
-
-			Cookie cookie = new Cookie("idUser", connectedUser.idUser.toString());
-			cookie.setDomain("eportfolio.cgonline.fr");
-			cookie.setPath("Medictionary");
-			cookie.setHttpOnly(false);
-			cookie.setSecure(false);
-			response.addCookie(cookie);
 		}
 		return connectedUser;
 	}

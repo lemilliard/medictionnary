@@ -46,7 +46,7 @@ public class Decision {
 
 		config.addDecision("Aspirine");
 		config.addDecision("Clopidogrel");
-		config.addDecision("Ibuprofene");
+		config.addDecision("Ibuprofène");
 		config.addDecision("Diclofenac");
 		config.addDecision("Fenspiride");
 		config.addDecision("Hydroxyzine");
@@ -69,22 +69,22 @@ public class Decision {
 		return decisionTree;
 	}
 
-	public static Stack<String> decide(Allergy allergy, List<Symptom> symptoms) throws MDException {
-		Stack<String> listMolecule = new Stack<String>();
-		HashMap<String, String> values = new HashMap<String, String>();
-
-		List<Integer> listAllergies = prepareDataAllergy(allergy);
+	public static Stack<String> decide(List<Allergy> allergies, List<Symptom> symptoms) throws MDException {
+		Stack<String> listMolecule = new Stack<>();
+		HashMap<String, String> values = new HashMap<>();
 
 		initConfig();
+
+		List<Integer> listAllergies = prepareDataAllergy(allergies);
 
 		DecisionTree decisionTree = generateTree(listAllergies);
 
 		prepareValueDecide(symptoms, values);
 
 		Result decision = decisionTree.decide(values);
-		if (!decision.getValue().equals("Aucun")) {
-			listMolecule.push(decision.getValue());
-		} else {
+//		if (!decision.getValue().equals("Aucun")) {
+//			listMolecule.push(decision.getValue());
+//		} else {
 			for (Symptom s : symptoms) {
 				Result decisionForOne;
 				values.clear();
@@ -96,20 +96,20 @@ public class Decision {
 				}
 				decisionForOne = decisionTree.decide(values);
 				if (!decisionForOne.getValue().equals("Aucun")) {
-					listMolecule.push(decision.getValue());
+					listMolecule.push(decisionForOne.getValue());
 				}
-			}
+//			}
 		}
-                
-                listMolecule = getCompatibles(listMolecule, allergy);
+
+		listMolecule = getCompatibles(listMolecule, allergies);
 
 		return listMolecule;
 	}
 
-	private static List<Integer> prepareDataAllergy(Allergy listAllergies) {
-		List<Integer> list = new ArrayList<Integer>();
-		for (Drug d : listAllergies.drugs) {
-			list.add(config.getIndexOfDecision(d.molecule));
+	private static List<Integer> prepareDataAllergy(List<Allergy> allergies) {
+		List<Integer> list = new ArrayList<>();
+		for (Allergy allergy : allergies) {
+			list.add(config.getIndexOfDecision(allergy.drug.molecule));
 		}
 		return list;
 	}
@@ -125,7 +125,7 @@ public class Decision {
 		}
 	}
 
-	private static Stack<String> getCompatibles(Stack<String> molecules, Allergy allergy) throws MDException {
+	private static Stack<String> getCompatibles(Stack<String> molecules, List<Allergy> allergies) throws MDException {
 		Stack<String> compatibles = new Stack<>();
 
 		int i;
@@ -134,7 +134,7 @@ public class Decision {
 		boolean addedEquivalence;
 		while (!molecules.empty()) {
 			currentMolecule = molecules.pop();
-			if (isCompatible(currentMolecule, compatibles, allergy)) {
+			if (isCompatible(currentMolecule, compatibles, allergies)) {
 				compatibles.push(currentMolecule);
 			} else {
 				equivalences = getEquivalences(currentMolecule);
@@ -144,7 +144,7 @@ public class Decision {
 					i = 0;
 					addedEquivalence = false;
 					while (i < equivalences.size() && !addedEquivalence) {
-						if (isCompatible(equivalences.get(i).molecule, compatibles, allergy)) {
+						if (isCompatible(equivalences.get(i).molecule, compatibles, allergies)) {
 							compatibles.push(equivalences.get(i).molecule);
 							addedEquivalence = true;
 							molecules.pop();
@@ -157,7 +157,7 @@ public class Decision {
 		return compatibles;
 	}
 
-	private static boolean isCompatible(String molecule, Stack<String> compatibles, Allergy allergy) throws MDException {
+	private static boolean isCompatible(String molecule, Stack<String> compatibles, List<Allergy> allergies) throws MDException {
 		MDCondition drugCondition = new MDCondition("molecule", MDConditionOperator.EQUAL, molecule);
 		Drug drug = Main.miniDAO.read().getEntityByCondition(Drug.class, drugCondition);
 
@@ -173,7 +173,6 @@ public class Decision {
 		int i = 0;
 		int j;
 		boolean compatible = true;
-		List<Drug> allergies = allergy.drugs;
 		while (i < incompatibilities.size() && compatible) {
 			j = 0;
 			while (j < compatibles.size() && compatible) {
@@ -185,7 +184,7 @@ public class Decision {
 			}
 			j = 0;
 			while (j < allergies.size() && compatible) {
-				if (allergies.get(j).idDrug.equals(drug.idDrug)) {
+				if (allergies.get(j).drug.idDrug.equals(drug.idDrug)) {
 					compatible = false;
 				}
 				j++;
