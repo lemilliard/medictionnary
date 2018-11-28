@@ -6,7 +6,6 @@ import com.thomaskint.minidao.exception.MDException;
 import com.thomaskint.minidao.querybuilder.MDCondition;
 import fr.epsi.i5.medictionary.back.appli.Main;
 import fr.epsi.i5.medictionary.back.appli.model.User;
-import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
