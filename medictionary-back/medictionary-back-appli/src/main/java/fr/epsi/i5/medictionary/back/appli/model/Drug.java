@@ -16,4 +16,7 @@ public class Drug {
 
 	@MDField(fieldName = "name")
 	public String name;
+
+	@MDField(fieldName = "cas")
+	public String cas;
 }
