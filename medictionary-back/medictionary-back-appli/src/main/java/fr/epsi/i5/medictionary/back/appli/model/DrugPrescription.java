@@ -15,8 +15,8 @@ public class DrugPrescription {
     public Integer idDrugPrescription;
 
     @MDManyToOne(fieldName = "id_drug", targetFieldName = "id_drug", target = Drug.class, loadPolicy = MDLoadPolicy.HEAVY)
-    public Symptom symptom;
+    public Drug drug;
 
     @MDManyToOne(fieldName = "id_prescription", targetFieldName = "id_prescription", target = Prescription.class, loadPolicy = MDLoadPolicy.HEAVY)
-    public Zone zone;
+    public Prescription prescription;
 }

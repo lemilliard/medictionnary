@@ -17,5 +17,5 @@ public class Histo
         public Integer idUser;
 
         @MDManyToOne(fieldName = "id_prescription", targetFieldName = "id_prescription", target = Prescription.class, loadPolicy = MDLoadPolicy.HEAVY)
-        public Symptom symptom;
+        public Histo histo;
 }
