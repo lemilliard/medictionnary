@@ -22,10 +22,7 @@ import fr.epsi.i5.medictionary.back.appli.model.Allergy;
 import fr.epsi.i5.medictionary.back.appli.model.Drug;
 import fr.epsi.i5.medictionary.back.appli.model.Symptom;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author kbouzan
@@ -85,19 +82,19 @@ public class Decision {
 //		if (!decision.getValue().equals("Aucun")) {
 //			listMolecule.push(decision.getValue());
 //		} else {
-			for (Symptom s : symptoms) {
-				Result decisionForOne;
-				values.clear();
-				values.put(s.name, "oui");
-				for (Attribut a : config.getAttributs()) {
-					if (!values.containsKey(a.getName())) {
-						values.put(a.getName(), "non");
-					}
+		for (Symptom s : symptoms) {
+			Result decisionForOne;
+			values.clear();
+			values.put(s.name, "oui");
+			for (Attribut a : config.getAttributs()) {
+				if (!values.containsKey(a.getName())) {
+					values.put(a.getName(), "non");
 				}
-				decisionForOne = decisionTree.decide(values);
-				if (!decisionForOne.getValue().equals("Aucun")) {
-					listMolecule.push(decisionForOne.getValue());
-				}
+			}
+			decisionForOne = decisionTree.decide(values);
+			if (!decisionForOne.getValue().equals("Aucun")) {
+				listMolecule.push(decisionForOne.getValue());
+			}
 //			}
 		}
 
@@ -168,7 +165,7 @@ public class Decision {
 
 		String query = selectBuilder.build();
 		ResultSet resultSet = Main.miniDAO.executeQuery(query);
-		List<Incompatibility> incompatibilities = Main.miniDAO.mapResultSetToEntities(resultSet, Incompatibility.class, 0, 1000);
+		List<Incompatibility> incompatibilities = Main.miniDAO.mapResultSetToEntities(resultSet, Incompatibility.class);
 
 		int i = 0;
 		int j;
@@ -204,6 +201,9 @@ public class Decision {
 		ResultSet resultSet = Main.miniDAO.executeQuery(query);
 		DrugSymptom drugSymptom = Main.miniDAO.mapResultSetToEntity(resultSet, DrugSymptom.class);
 
-		return drugSymptom.drugs;
+		if (drugSymptom != null && drugSymptom.drugs != null) {
+			return drugSymptom.drugs;
+		}
+		return Collections.emptyList();
 	}
 }

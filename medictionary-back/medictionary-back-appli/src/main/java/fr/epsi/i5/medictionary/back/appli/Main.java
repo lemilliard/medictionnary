@@ -13,7 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Main {
 
-	private static final String url = "192.168.112.17";
+//	private static final String url = "192.168.112.17";
+	private static final String url = "localhost";
 	private static final String port = "3306";
 	private static final String login = "medictionary";
 	private static final String password = "password";
