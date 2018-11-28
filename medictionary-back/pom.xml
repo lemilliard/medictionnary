@@ -21,6 +21,17 @@
         <module>medictionary-back-pharma</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-tkint-maven</id>
+            <name>bintray-tkint</name>
+            <url>https://dl.bintray.com/tkint/maven</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -41,7 +52,7 @@
         <dependency>
             <groupId>com.thomaskint</groupId>
             <artifactId>minidao</artifactId>
-            <version>1.1.10</version>
+            <version>1.2.2</version>
         </dependency>
 
         <dependency>

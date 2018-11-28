@@ -3,6 +3,8 @@ package fr.epsi.i5.medictionary.back.appli.model;
 import com.thomaskint.minidao.annotation.MDEntity;
 import com.thomaskint.minidao.annotation.MDField;
 import com.thomaskint.minidao.annotation.MDId;
+import com.thomaskint.minidao.annotation.MDManyToOne;
+import com.thomaskint.minidao.enumeration.MDLoadPolicy;
 
 @MDEntity(tableName = "symptom_zone")
 public class SymptomZone {
@@ -11,9 +13,9 @@ public class SymptomZone {
 	@MDField(fieldName = "id_symptom_zone")
 	public Integer idSymptomZone;
 
-	@MDField(fieldName = "id_symptom")
-	public Integer idSymptom;
+	@MDManyToOne(fieldName = "id_symptom", targetFieldName = "id_symptom", target = Symptom.class, loadPolicy = MDLoadPolicy.HEAVY)
+	public Symptom symptom;
 
-	@MDField(fieldName = "zone_name")
-	public String zoneName;
+	@MDManyToOne(fieldName = "zone_name", targetFieldName = "name", target = Zone.class, loadPolicy = MDLoadPolicy.HEAVY)
+	public Zone zone;
 }
