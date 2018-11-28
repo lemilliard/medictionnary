@@ -3,6 +3,10 @@ package fr.epsi.i5.medictionary.back.appli.model;
 import com.thomaskint.minidao.annotation.MDEntity;
 import com.thomaskint.minidao.annotation.MDField;
 import com.thomaskint.minidao.annotation.MDId;
+import com.thomaskint.minidao.annotation.MDOneToMany;
+import com.thomaskint.minidao.enumeration.MDLoadPolicy;
+
+import java.util.List;
 
 @MDEntity(tableName = "drug")
 public class Drug {

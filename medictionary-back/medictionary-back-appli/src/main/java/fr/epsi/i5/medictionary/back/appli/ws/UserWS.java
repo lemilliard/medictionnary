@@ -8,6 +8,8 @@ import fr.epsi.i5.medictionary.back.appli.Main;
 import fr.epsi.i5.medictionary.back.appli.model.User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -24,8 +26,9 @@ public class UserWS {
 	}
 
 	@PostMapping("/user")
-	public User createUser(@RequestBody User user) throws MDException {
-		if (Main.miniDAO.create().createEntity(user)) {
+	public User createUser(@RequestBody User user, HttpServletResponse response) throws MDException {
+		if (Main.miniDAO.create().createEntity(user) && user.idUser != null) {
+			response.addCookie(new Cookie("idUser", user.idUser.toString()));
 			return user;
 		}
 		return null;
@@ -50,12 +53,13 @@ public class UserWS {
 	}
 
 	@PostMapping("/user/login")
-	public User loginUser(@RequestBody User user) throws MDException {
+	public User loginUser(@RequestBody User user, HttpServletResponse response) throws MDException {
 		User connectedUser = null;
 		if (user != null) {
 			MDCondition loginCondition = new MDCondition("login", MDConditionOperator.EQUAL, user.login);
 			MDCondition condition = new MDCondition("password", MDConditionOperator.EQUAL, user.password, MDConditionLink.AND, loginCondition);
 			connectedUser = Main.miniDAO.read().getEntityByCondition(User.class, condition);
+			response.addCookie(new Cookie("idUser", connectedUser.idUser.toString()));
 		}
 		return connectedUser;
 	}
