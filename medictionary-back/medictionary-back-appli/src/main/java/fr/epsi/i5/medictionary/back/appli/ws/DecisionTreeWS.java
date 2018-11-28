@@ -1,5 +1,6 @@
 package fr.epsi.i5.medictionary.back.appli.ws;
 
+import com.thomaskint.minidao.exception.MDException;
 import fr.epsi.i5.medictionary.back.appli.decisionTree.Decision;
 import fr.epsi.i5.medictionary.back.appli.model.DecisionTreeParam;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import java.util.Stack;
 public class DecisionTreeWS {
 
 	@PostMapping("/decision")
-	public Stack<String> callDecisionTree(@RequestBody DecisionTreeParam param) {
+	public Stack<String> callDecisionTree(@RequestBody DecisionTreeParam param) throws MDException {
 		return Decision.decide(param.allergy, param.symptoms);
 	}
 }
