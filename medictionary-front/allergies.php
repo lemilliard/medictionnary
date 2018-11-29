@@ -26,12 +26,13 @@
 
                     <h2 class="h3 mt-4 mb-3">Modifier allergies</h2>
                     <!-- Default switch -->
-                    <form>
+                    <form id="update_allergies">
                         <div id="allergiesdiv" class="row justify-content-start">
                         </div>
                         <div class="row justify-content-end">
                             <div class="col-12 col-md-12 col-lg-12 ">
-                                <button type="submit" class="btn btn-default">Enregistrer</button>
+                                <button id="update_allergies_btn" type="submit" class="btn btn-default">Enregistrer
+                                </button>
                             </div>
                         </div>
                     </form>

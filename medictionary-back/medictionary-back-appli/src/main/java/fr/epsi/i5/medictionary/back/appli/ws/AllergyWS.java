@@ -9,6 +9,7 @@ import fr.epsi.i5.medictionary.back.appli.model.Allergy;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class AllergyWS {
@@ -29,19 +30,23 @@ public class AllergyWS {
 		return MedictionaryBackAppli.miniDAO.read().getEntities(Allergy.class, condition);
 	}
 
-	@PostMapping("/allergy/user/{id}")
-	public void createAllergiesByUser(@RequestBody List<Integer> idDrugs, @PathVariable(name = "id") int idUser) throws MDException {
-		Allergy allergy;
+	@PutMapping("/allergy/user/{id}")
+	public void updateAllergiesByUser(@RequestBody List<Allergy> updatingAllergies, @PathVariable(name = "id") int idUser) throws MDException {
 		MDCondition idUserCondition;
 		MDCondition condition;
-		for (Integer idDrug : idDrugs) {
+		List<Allergy> allergies;
+		for (Allergy allergy : updatingAllergies) {
 			idUserCondition = new MDCondition("id_user", MDConditionOperator.EQUAL, idUser);
-			condition = new MDCondition("id_drug", MDConditionOperator.EQUAL, idDrug, MDConditionLink.AND, idUserCondition);
-			if (MedictionaryBackAppli.miniDAO.read().getEntities(Allergy.class, condition).isEmpty()) {
-				allergy = new Allergy();
-				allergy.idUser = idUser;
-				allergy.idDrug = idDrug;
+			condition = new MDCondition("id_drug", MDConditionOperator.EQUAL, allergy.idDrug, MDConditionLink.AND, idUserCondition);
+			allergies = MedictionaryBackAppli.miniDAO.read().getEntities(Allergy.class, condition);
+			if (allergies.isEmpty() && allergy.valid) {
 				MedictionaryBackAppli.miniDAO.create().createEntity(allergy);
+			} else {
+				for (Allergy a : allergies) {
+					if (Objects.equals(a.idUser, allergy.idUser) && a.idDrug.equals(allergy.idDrug) && !allergy.valid) {
+						MedictionaryBackAppli.miniDAO.delete().deleteEntity(a);
+					}
+				}
 			}
 		}
 	}

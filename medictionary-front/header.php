@@ -1,6 +1,6 @@
 <?php
 // Récupération de l'user
-$is_login = !(isset($_COOKIE["idUser"]) || is_null($_COOKIE["idUser"]));
+$is_login = ($_COOKIE["idUser"] != null);
 
 if (basename($_SERVER['PHP_SELF']) != 'index.php') {
     ?>

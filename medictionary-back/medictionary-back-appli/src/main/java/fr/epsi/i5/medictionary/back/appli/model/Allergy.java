@@ -20,4 +20,6 @@ public class Allergy {
 
 	@MDManyToOne(fieldName = "id_drug", targetFieldName = "id_drug", target = Drug.class, loadPolicy = MDLoadPolicy.HEAVY)
 	public Drug drug;
+
+	public boolean valid;
 }

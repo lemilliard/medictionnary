@@ -93,7 +93,7 @@ function maPosition(position) {
     });
 }
 
-function test() {
+function getSymptoms() {
     $.ajax({
         url: "<?php echo "https://192.168.112.17:8443/symptomZone/${zone}"; ?>",
         method: "GET",
@@ -161,7 +161,7 @@ if (navigator.geolocation)
 <script>
 
 
-test();
+getSymptoms();
 </script>
 </body>
 
