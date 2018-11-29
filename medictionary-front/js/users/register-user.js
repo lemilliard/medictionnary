@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    if (!document.cookie.includes("idUser")) {
+        localStorage.removeItem("user");
+    }
+
     $('#signup_form').on("submit", function (event) {
 
         event.preventDefault();
@@ -39,6 +43,7 @@ $(document).ready(function () {
                     $('#password').val('');
                     $('.statusMsg').html('<span style="color:green;">Merci pour votre inscription.</p>');
                     console.log(response);
+                    localStorage.setItem("user", JSON.stringify(response));
                     document.cookie = "idUser=" + response.idUser;
                     document.location.href = "/edit-user";
 

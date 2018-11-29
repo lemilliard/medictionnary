@@ -1,4 +1,25 @@
-<?php $is_login = ($_COOKIE["idUser"] != null); ?>
+<?php
+// Récupération de l'user
+$is_login = ($_COOKIE["idUser"] != null);
+
+if (basename($_SERVER['PHP_SELF']) != 'index.php') {
+    ?>
+
+    <style>
+        .navbar {
+            background: #1C2331 !important;
+        }
+		
+		header {
+			height: 100px;
+		}
+    </style>
+
+    <?php
+}
+
+
+?>
 
 <header>
 
@@ -26,24 +47,6 @@
 
                 </ul>
 
-                <!-- Right -->
-                <ul class="navbar-nav nav-flex-icons">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-github mr-2"></i>
-                        </a>
-                    </li>
-                </ul>
                 <?php if ($is_login) { ?>
                     <a class="nav-link" href="/edit-user">
                         <button type="button" class="btn  btn-white btn-rounded waves-effect" data-toggle="modal"
@@ -71,7 +74,7 @@
         </div>
     </nav>
     <!-- Navbar -->
-    <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { ?>
+    <?php echo '$$$$$$$$$$$$$$$$$$$$$$$$$$ <br><br><br>' .basename($_SERVER['PHP_SELF']); if (basename($_SERVER['PHP_SELF']) === 'index.php') { ?>
         <!-- Full Page Intro -->
         <div class="view full-page-intro">
 
