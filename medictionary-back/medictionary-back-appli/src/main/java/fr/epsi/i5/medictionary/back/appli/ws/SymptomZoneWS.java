@@ -1,6 +1,8 @@
 package fr.epsi.i5.medictionary.back.appli.ws;
 
+import com.thomaskint.minidao.enumeration.MDConditionOperator;
 import com.thomaskint.minidao.exception.MDException;
+import com.thomaskint.minidao.querybuilder.MDCondition;
 import fr.epsi.i5.medictionary.back.appli.MedictionaryBackAppli;
 import fr.epsi.i5.medictionary.back.appli.model.SymptomZone;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,9 @@ public class SymptomZoneWS {
 	}
 
 	@GetMapping("/symptomZone/{zone}")
-	public SymptomZone getSymptomZone(@PathVariable(name = "zone") String zone) throws MDException {
-		return MedictionaryBackAppli.miniDAO.read().getEntityById(SymptomZone.class, zone);
+	public SymptomZone getSymptomZoneByName(@PathVariable(name = "zone") String zone) throws MDException {
+                MDCondition zoneCondition = new MDCondition("zone", MDConditionOperator.EQUAL, zone);
+		return MedictionaryBackAppli.miniDAO.read().getEntityByCondition(SymptomZone.class, zoneCondition);
 	}
 
 	@PostMapping("/symptomZone")
