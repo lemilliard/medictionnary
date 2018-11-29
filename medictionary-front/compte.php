@@ -25,7 +25,7 @@
 
 
                     <h2 class="h3 mt-4 mb-3">Modifier compte</h2>
-                    <form class="md-form">
+                    <form id="update_compte" class="md-form">
                         <div class="mx-3">
                             <div class="md-form mb-5">
                                 <input type="text" id="loginBis" class="form-control validate" disabled style="    background-color: #e9ecef;
@@ -47,7 +47,7 @@
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="submit" id="update_compte_btn" class="btn btn-primary">Enregistrer</button>
                     </form>
                 </div>
 
@@ -70,6 +70,7 @@
 
 <?php require('footer.php'); ?>
 <script src="js/users/compte.js"></script>
+ <script src="./js/users/update-compte.js"></script>
 </body>
 
 </html>
