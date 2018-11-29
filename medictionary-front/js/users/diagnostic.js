@@ -1,23 +1,43 @@
+var user = JSON.parse(localStorage.getItem("user"));
+var symptomes = [];
+
 function maPosition(position) {
     var infopos = "Position déterminée :\n";
     infopos += "Latitude : " + position.coords.latitude + "\n";
     infopos += "Longitude: " + position.coords.longitude + "\n";
-    alert(infopos);
     $.ajax({
-        url: "https://192.168.112.17:8444/pharmacies",
+        url: "https://192.168.112.17:8443/decision",
         method: "POST",
         contentType: "application/json",
-        data: JSON.stringify({
-            casDrug: ["68-88-2"],
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-        }),
-        success: function (response) {
-            alert('succes');
-            console.log(response);
+        data: JSON.stringify({ idUser: user.idUser, symptoms: symptomes }),
+        success: function (drugs) {
+            var casDrug = [];
+
+            drugs.forEach(function (drug) {
+                if (!casDrug.includes(drug.cas))
+                    casDrug.push(drug.cas);
+            });
+
+            $.ajax({
+                url: "https://192.168.112.17:8444/pharmacies",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    casDrug: casDrug,
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                }),
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (response) {
+                    alert('error');
+                    $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
+                    console.log(response);
+                }
+            });
         },
         error: function (response) {
-            alert('error');
             $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
             console.log(response);
         }
@@ -25,8 +45,6 @@ function maPosition(position) {
 }
 
 $(document).ready(function () {
-    var user = JSON.parse(localStorage.getItem("user"));
-    var symptomes = [];
 
     $.ajax({
         url: "https://192.168.112.17:8443/zone",
@@ -93,19 +111,6 @@ $(document).ready(function () {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(maPosition);
         }
-        $.ajax({
-            url: "https://192.168.112.17:8443/decision",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ idUser: user.idUser, symptoms: symptomes }),
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (response) {
-                $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
-                console.log(response);
-            }
-        });
     });
 });
 

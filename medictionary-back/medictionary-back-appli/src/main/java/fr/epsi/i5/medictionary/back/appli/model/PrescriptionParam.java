@@ -8,13 +8,11 @@ package fr.epsi.i5.medictionary.back.appli.model;
 import java.util.List;
 
 /**
- *
  * @author kbouzan
  */
 public class PrescriptionParam {
-    
-    public List<Drug> drogues;
-    
-    public Integer idUser;
-    
+
+	public Integer idUser;
+
+	public List<Drug> drugs;
 }

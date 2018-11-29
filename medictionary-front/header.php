@@ -49,8 +49,7 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php') {
 
                 <?php if ($is_login) { ?>
                     <a class="nav-link" href="/edit-user">
-                        <button type="button" class="btn  btn-white btn-rounded waves-effect" data-toggle="modal"
-                                data-target="#modalLoginForm">
+                        <button type="button" class="btn  btn-white btn-rounded waves-effect" >
                             Mon compte
                         </button>
                     </a>

@@ -7,16 +7,21 @@ import com.thomaskint.minidao.annotation.MDId;
 import com.thomaskint.minidao.annotation.MDManyToOne;
 import com.thomaskint.minidao.enumeration.MDLoadPolicy;
 
+import java.util.List;
+
 @MDEntity(tableName = "drug_prescription")
 public class DrugPrescription {
 
-    @MDId
-    @MDField(fieldName = "id_drug_prescription")
-    public Integer idDrugPrescription;
+	@MDId
+	@MDField(fieldName = "id_drug_prescription")
+	public Integer idDrugPrescription;
 
-    @MDManyToOne(fieldName = "id_drug", targetFieldName = "id_drug", target = Drug.class, loadPolicy = MDLoadPolicy.HEAVY)
-    public Drug drug;
+	@MDField(fieldName = "id_drug")
+	public Integer idDrug;
 
-    @MDManyToOne(fieldName = "id_prescription", targetFieldName = "id_prescription", target = Prescription.class, loadPolicy = MDLoadPolicy.HEAVY)
-    public Prescription prescription;
+	@MDField(fieldName = "id_prescription")
+	public Integer idPrescription;
+
+	@MDManyToOne(fieldName = "id_drug", targetFieldName = "id_drug", target = Drug.class, loadPolicy = MDLoadPolicy.HEAVY)
+	public Drug drug;
 }

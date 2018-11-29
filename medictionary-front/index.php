@@ -15,7 +15,7 @@
         <section class="mt-5 ">
 
             <!--Grid row-->
-            <div class="row">
+            <div class="row justify-content-justify text-center">
 
                 <!--Grid column-->
                 <div class="col-md-12 mb-4">
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div id="zonesdiv" class="row justify-content-start">
+                    <div id="zonesdiv" class="row justify-content-justify text-center">
                         <select id="liste-zone" class="browser-default custom-select">
                             <option selected>Sélectionnez une zone</option>
                         </select>
@@ -46,12 +46,13 @@
                 <div class=" col-12 col-md-12 col-lg-12 mt-4 mb-4">
                     <div id="symptomeschoisisdiv" class="row justify-content-start"></div>
                 </div>
-                <div class="col-12 col-md-12 col-lg-12 ">
-                    <button id="diagnostic_btn" type="submit" class="btn btn-default" style="display: none">
-                        Diagnostic
-                    </button>
-                </div>
-                <div class="personnage col-12 col-md-6 col-lg-6">
+					<div class="col-12 col-md-12 col-lg-12 text-center">
+						<button id="diagnostic_btn" type="submit" class="btn btn-default" data-toggle="modal"
+                                data-target="#modalDiagnosticUser" style="display: none">
+							Diagnostic
+						</button>
+					</div>
+                <!--<div class="personnage col-12 col-md-6 col-lg-6">
                     <div class="row justify-content-center">
                         <div class="col col-md-12">
                             <div class="row justify-content-center">
@@ -156,7 +157,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div>-->
 
 
                 <!--Grid column-->
