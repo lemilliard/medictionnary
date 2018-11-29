@@ -19,9 +19,6 @@ public class Prescription {
     @MDField(fieldName = "name")
     public String name;
 
-    @MDField(fieldName = "cas")
-    public String cas;
-
     @MDField(fieldName = "id_user")
     public Integer idUser;
 }
