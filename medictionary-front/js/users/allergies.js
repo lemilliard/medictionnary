@@ -20,7 +20,7 @@ $(document).ready(function () {
                         });
 
                         var div = '<div class="col-3 col-md-3 col-lg-3 ">' +
-                            '<h4>' + JSON.stringify(drug.name) + '</h4>' +
+                            '<h4>' + drug.name + '</h4>' +
                             '<label class="bs-switch">' +
                             '<input type="checkbox" id="allergies-' + drug.idDrug + '"' +
                             (hasAllergy ? 'checked' : '') + '>' +
