@@ -9,10 +9,10 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php') {
         .navbar {
             background: #1C2331 !important;
         }
-		
-		header {
-			height: 100px;
-		}
+
+        header {
+            height: 100px;
+        }
     </style>
 
     <?php
@@ -74,7 +74,7 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php') {
         </div>
     </nav>
     <!-- Navbar -->
-    <?php echo '$$$$$$$$$$$$$$$$$$$$$$$$$$ <br><br><br>' .basename($_SERVER['PHP_SELF']); if (basename($_SERVER['PHP_SELF']) === 'index.php') { ?>
+    <?php if (basename($_SERVER['PHP_SELF']) === 'index.php') { ?>
         <!-- Full Page Intro -->
         <div class="view full-page-intro">
 

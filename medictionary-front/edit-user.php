@@ -79,11 +79,7 @@
 
 
                     <h2 class="h3 mt-4 mb-3">Modifier profil</h2>
-                    <form class="md-form">
-                        <?php
-                        echo 'user session : ' . $_SESSION['idUser'] . ' $$$$';
-                        echo 'user id : ' . $idUser . ' $$$$';
-                        echo 'user is login : ' . $is_login . ' $$$$'; ?>
+                    <form id="update_user" class="md-form">
                         <div class="mx-3">
                             <div class="md-form mb-5">
 
@@ -112,7 +108,7 @@
 
 
                         </div>
-                        <button type="submit" class="btn btn-default">Enregistrer</button>
+                        <button type="submit" id="update_user_btn" class="btn btn-default">Enregistrer</button>
                     </form>
                 </div>
 
@@ -134,7 +130,8 @@
 <!--Main layout-->
 
 <?php require('footer.php'); ?>
-<script src="js/users/edit-user.js"></script>
+<script src="./js/users/edit-user.js"></script>
+<script src="./js/users/update-user.js"></script>
 </body>
 
 </html>

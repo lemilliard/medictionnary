@@ -25,7 +25,7 @@
 
 
                     <h2 class="h3 mt-4 mb-3">Modifier compte</h2>
-                    <form class="md-form">
+                    <form id="update_compte" class="md-form">
                         <div class="mx-3">
                             <div class="md-form mb-5">
                                 <input type="text" id="loginBis" class="form-control validate" disabled style="    background-color: #e9ecef;
@@ -33,21 +33,14 @@
                                 <label id="loginBisLabel" data-error="wrong" data-success="right" for="loginBis"
                                        class="disabled">Username</label>
                             </div>
-
                             <div class="md-form mb-4">
-                                <input type="password" id="current-password" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="current-password">Mot de passe
-                                    actuel</label>
-                            </div>
-
-                            <div class="md-form mb-4">
-                                <input type="password" id="password" class="form-control validate">
+                                <input type="password" id="new-password" class="form-control validate">
                                 <label data-error="wrong" data-success="right" for="password">Nouveau mot de
                                     passe</label>
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="submit" id="update_compte_btn" class="btn btn-default">Enregistrer</button>
                     </form>
                 </div>
 
@@ -70,6 +63,7 @@
 
 <?php require('footer.php'); ?>
 <script src="js/users/compte.js"></script>
+ <script src="./js/users/update-compte.js"></script>
 </body>
 
 </html>

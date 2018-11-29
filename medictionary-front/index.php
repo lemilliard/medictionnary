@@ -18,13 +18,34 @@
             <div class="row">
 
                 <!--Grid column-->
-                <div class="col-md-6 mb-4">
+                <div class="col-md-12 mb-4">
                     <!-- Main heading -->
                     <h2 class="h3 mb-3">Réalise ton auto-diagnostic maintenant</h2>
                     <p>Utilisez le personnage ci-dessous pour identifier la zone concerné par votre auto-diagnostic.</p>
                     <p>Une liste de symptôme de la zone sélectionné vous sera proposé.</p>
                     <!-- Main heading -->
+					
+					
                 </div>
+				
+				<div class="col-md-6">
+				<div id="zonesdiv" class="row justify-content-start"></div>
+					<select class="browser-default custom-select">
+					  <option selected>Sélectionnez une zone</option>
+					  <option value="1">One</option>
+					  <option value="2">Two</option>
+					  <option value="3">Three</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+				<div id="zonesdiv" class="row justify-content-start"></div>
+					<select class="browser-default custom-select">
+					  <option selected>Sélectionnez un/des symptôme(s)</option>
+					  <option value="1">One</option>
+					  <option value="2">Two</option>
+					  <option value="3">Three</option>
+					</select>
+				</div>
                 <div class="personnage col-12 col-md-6 col-lg-6">
                     <div class="row justify-content-center">
                         <div class="col col-md-12">

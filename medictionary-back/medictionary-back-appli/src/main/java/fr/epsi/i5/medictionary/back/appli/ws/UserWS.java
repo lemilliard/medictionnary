@@ -23,11 +23,13 @@ public class UserWS {
 
 	@GetMapping("/user/{id}")
 	public User getUser(@PathVariable(name = "id") int id) throws MDException {
+		System.out.println("GET user");
 		return MedictionaryBackAppli.miniDAO.read().getEntityById(User.class, id);
 	}
 
 	@PostMapping("/user")
 	public User createUser(@RequestBody User user) throws MDException {
+		System.out.println("POST user");
 		if (MedictionaryBackAppli.miniDAO.create().createEntity(user) && user.idUser != null) {
 			return user;
 		}
@@ -36,7 +38,8 @@ public class UserWS {
 
 	@PutMapping("/user")
 	public User updateUser(@RequestBody User user) throws MDException {
-		if (MedictionaryBackAppli.miniDAO.update().updateEntity(user)) {
+		System.out.println("PUT user");
+		if (user.idUser != null && MedictionaryBackAppli.miniDAO.update().updateEntity(user)) {
 			return user;
 		}
 		return null;
@@ -44,16 +47,19 @@ public class UserWS {
 
 	@DeleteMapping("/user")
 	public boolean deleteUser(@RequestBody User user) throws MDException {
+		System.out.println("DELETE user");
 		return MedictionaryBackAppli.miniDAO.delete().deleteEntity(user);
 	}
 
 	@DeleteMapping("/user/{id}")
 	public boolean deleteUserById(@PathVariable("id") int id) throws MDException {
+		System.out.println("DELETE user");
 		return MedictionaryBackAppli.miniDAO.delete().deleteEntityById(User.class, id);
 	}
 
 	@PostMapping("/user/login")
 	public User loginUser(@RequestBody User user) throws MDException {
+		System.out.println("LOGIN user");
 		User connectedUser = null;
 		if (user != null) {
 			MDCondition loginCondition = new MDCondition("login", MDConditionOperator.EQUAL, user.login);
