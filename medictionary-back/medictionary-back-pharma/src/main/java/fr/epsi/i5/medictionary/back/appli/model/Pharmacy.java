@@ -22,4 +22,6 @@ public class Pharmacy {
 
     @MDField(fieldName = "latitude")
     public Double latitude;
+    
+    public Double distance;
 }

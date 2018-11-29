@@ -46,6 +46,7 @@ public class PharmacyWS {
                 double dist = distance(param.latitude, param.longitude, pharmacy.latitude, pharmacy.longitude);
                 double currentDist = distance(param.latitude, param.longitude, closest.latitude, closest.longitude);
 
+                pharmacy.distance = dist;
                 if( dist < currentDist ){
                     closest = pharmacy;
                 }
