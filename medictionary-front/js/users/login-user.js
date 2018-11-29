@@ -29,6 +29,7 @@ $(document).ready(function () {
                     $('.statusMsg').html('<span style="color:green;">Identifiants corrects.</p>');
                     console.log(response);
                     document.cookie = "idUser=" + response.idUser;
+                    document.location.href = "/edit-user";
 
                 },
                 error: function (response) {
@@ -38,5 +39,14 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $('#logout-btn').on("click", function (event) {
+        event.preventDefault();
+        var d = new Date();
+        d.setTime(d.getTime() - (1000 * 60 * 60 * 24));
+        var expires = "expires=" + d.toGMTString();
+        window.document.cookie = "idUser=" + "; " + expires;
+        document.location.href = "https://medictionnary.cgonline.fr";
     });
 });

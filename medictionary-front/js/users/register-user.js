@@ -40,7 +40,7 @@ $(document).ready(function () {
                     $('.statusMsg').html('<span style="color:green;">Merci pour votre inscription.</p>');
                     console.log(response);
                     document.cookie = "idUser=" + response.idUser;
-                    document.location.href = "/edit-user"
+                    document.location.href = "/edit-user";
 
                 },
                 error: function () {
