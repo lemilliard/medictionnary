@@ -15,6 +15,9 @@ public class Allergy {
 	@MDField(fieldName = "id_user")
 	public Integer idUser;
 
+	@MDField(fieldName = "id_drug")
+	public Integer idDrug;
+
 	@MDManyToOne(fieldName = "id_drug", targetFieldName = "id_drug", target = Drug.class, loadPolicy = MDLoadPolicy.HEAVY)
 	public Drug drug;
 }

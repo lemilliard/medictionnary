@@ -1,6 +1,9 @@
 package fr.epsi.i5.medictionary.back.appli.ws;
 
+import com.thomaskint.minidao.enumeration.MDConditionLink;
+import com.thomaskint.minidao.enumeration.MDConditionOperator;
 import com.thomaskint.minidao.exception.MDException;
+import com.thomaskint.minidao.querybuilder.MDCondition;
 import fr.epsi.i5.medictionary.back.appli.MedictionaryBackAppli;
 import fr.epsi.i5.medictionary.back.appli.model.Allergy;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,29 @@ public class AllergyWS {
 	@GetMapping("/allergy/{id}")
 	public Allergy getAllergy(@PathVariable(name = "id") int id) throws MDException {
 		return MedictionaryBackAppli.miniDAO.read().getEntityById(Allergy.class, id);
+	}
+
+	@GetMapping("/allergy/user/{id}")
+	public List<Allergy> getAllergiesByUserId(@PathVariable(name = "id") int id) throws MDException {
+		MDCondition condition = new MDCondition("id_user", MDConditionOperator.EQUAL, id);
+		return MedictionaryBackAppli.miniDAO.read().getEntities(Allergy.class, condition);
+	}
+
+	@PostMapping("/allergy/user/{id}")
+	public void createAllergiesByUser(@RequestBody List<Integer> idDrugs, @PathVariable(name = "id") int idUser) throws MDException {
+		Allergy allergy;
+		MDCondition idUserCondition;
+		MDCondition condition;
+		for (Integer idDrug : idDrugs) {
+			idUserCondition = new MDCondition("id_user", MDConditionOperator.EQUAL, idUser);
+			condition = new MDCondition("id_drug", MDConditionOperator.EQUAL, idDrug, MDConditionLink.AND, idUserCondition);
+			if (MedictionaryBackAppli.miniDAO.read().getEntities(Allergy.class, condition).isEmpty()) {
+				allergy = new Allergy();
+				allergy.idUser = idUser;
+				allergy.idDrug = idDrug;
+				MedictionaryBackAppli.miniDAO.create().createEntity(allergy);
+			}
+		}
 	}
 
 	@PostMapping("/allergy")

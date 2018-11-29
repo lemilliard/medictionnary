@@ -27,25 +27,9 @@
                     <h2 class="h3 mt-4 mb-3">Modifier allergies</h2>
                     <!-- Default switch -->
                     <form>
-                        <div class="row justify-content-start">
-
-                            <?php
-                            $cpt = 11;
-
-                            for ($i = 1; $i <= $cpt; $i++) {
-
-                                ?>
-                                <div class="col-3 col-md-3 col-lg-3 ">
-                                    <h4>Allergie <?php echo $i; ?></h4>
-                                    <label class="bs-switch">
-                                        <input type="checkbox" id="allergies-<?php echo $i; ?>">
-                                        <span class="slider round"></span>
-                                    </label>
-
-
-                                </div>
-
-                            <?php } ?>
+                        <div id="allergiesdiv" class="row justify-content-start">
+                        </div>
+                        <div class="row justify-content-end">
                             <div class="col-12 col-md-12 col-lg-12 ">
                                 <button type="submit" class="btn btn-default">Enregistrer</button>
                             </div>

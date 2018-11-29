@@ -33,21 +33,14 @@
                                 <label id="loginBisLabel" data-error="wrong" data-success="right" for="loginBis"
                                        class="disabled">Username</label>
                             </div>
-
                             <div class="md-form mb-4">
-                                <input type="password" id="current-password" class="form-control validate">
-                                <label data-error="wrong" data-success="right" for="current-password">Mot de passe
-                                    actuel</label>
-                            </div>
-
-                            <div class="md-form mb-4">
-                                <input type="password" id="password" class="form-control validate">
+                                <input type="password" id="new-password" class="form-control validate">
                                 <label data-error="wrong" data-success="right" for="password">Nouveau mot de
                                     passe</label>
                             </div>
 
                         </div>
-                        <button type="submit" id="update_compte_btn" class="btn btn-primary">Enregistrer</button>
+                        <button type="submit" id="update_compte_btn" class="btn btn-default">Enregistrer</button>
                     </form>
                 </div>
 

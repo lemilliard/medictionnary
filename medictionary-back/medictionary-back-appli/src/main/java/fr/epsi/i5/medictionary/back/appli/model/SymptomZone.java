@@ -13,6 +13,9 @@ public class SymptomZone {
 	@MDField(fieldName = "id_symptom_zone")
 	public Integer idSymptomZone;
 
+	@MDField(fieldName = "name_zone")
+	public String nameZone;
+
 	@MDManyToOne(fieldName = "name_symptom", targetFieldName = "name_symptom", target = Symptom.class, loadPolicy = MDLoadPolicy.HEAVY)
 	public Symptom symptom;
 

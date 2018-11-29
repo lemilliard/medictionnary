@@ -3,33 +3,24 @@ $(document).ready(function () {
         localStorage.removeItem("user");
     }
 	
-	var user = JSON.parse(localStorage.getItem("user"));
-	var myid = user.idUser;
-	var oldpass = user.password;
-	
-	console.log('ancien mot de pass');
-	console.log(oldpass);
-
     $('#update_compte').on("submit", function (event) {
-
         event.preventDefault();
-		if ($('#current-password').val() == "") {
-            alert("Votre mot de passe actuel est requis");
-        }
-		else if($('#current-password').val() != oldpass) {
-			alert("Vous devez entrer votre mot de passe actuel");
-		}
-        else if ($('#new-password').val() == "") {
+        if ($('#new-password').val() == "") {
             alert("Un nouveau mot de passe est requis");
         }
 
         else {
-            var myuser = localStorage.getItem('user');
-			var myid = myuser.idUser;
-			var oldpass = myuser.password;
-			var actualpass = $('#new-password').val();
+            var user = JSON.parse(localStorage.getItem("user"));
+			var myid = user.idUser;
+			var mylogin = user.login;
 			
-            var myweight = $('#weightBis').val()
+			var mynumss =  user.socialSecurityNumber;
+            var myfirstname =  user.firstname;
+            var mylastname =  user.lastname;
+            var myweight =  user.weight;
+			
+			
+			var newpass = $('#new-password').val();
 
             $.ajax({
                 url: "https://192.168.112.17:8443/user",
@@ -37,9 +28,10 @@ $(document).ready(function () {
                 contentType: "application/json",
                 data: JSON.stringify({
 					idUser : myid,
-					password : mypass,
+					login: mylogin,
+					password : newpass,
                     socialSecurityNumber: mynumss,
-                    fisrtname: myfirstname,
+                    firstname: myfirstname,
                     lastname: mylastname,
                     weight: myweight,
                 }),
