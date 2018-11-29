@@ -20,6 +20,11 @@ public class SymptomZoneWS {
 		return MedictionaryBackAppli.miniDAO.read().getEntityById(SymptomZone.class, id);
 	}
 
+	@GetMapping("/symptomZone/{zone}")
+	public SymptomZone getSymptomZone(@PathVariable(name = "zone") String zone) throws MDException {
+		return MedictionaryBackAppli.miniDAO.read().getEntityById(SymptomZone.class, zone);
+	}
+
 	@PostMapping("/symptomZone")
 	public SymptomZone createSymptomZone(@RequestBody SymptomZone symptomZone) throws MDException {
 		if (MedictionaryBackAppli.miniDAO.create().createEntity(symptomZone)) {
