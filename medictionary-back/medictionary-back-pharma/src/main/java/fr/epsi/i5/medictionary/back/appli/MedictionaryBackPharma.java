@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class Main {
+public class MedictionaryBackPharma {
 
 	private static final String url = "192.168.112.17";
 	private static final String port = "3306";
@@ -22,7 +22,7 @@ public class Main {
 	public static final MiniDAO miniDAO = new MiniDAO(mdConnectionConfig);
 
 	public static void main(String[] args) {
-		SpringApplication.run(Main.class, args);
+		SpringApplication.run(MedictionaryBackPharma.class, args);
 	}
 
 }

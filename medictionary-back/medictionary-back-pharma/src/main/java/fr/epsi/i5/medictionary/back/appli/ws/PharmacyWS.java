@@ -2,13 +2,12 @@ package fr.epsi.i5.medictionary.back.appli.ws;
 
 
 import com.thomaskint.minidao.exception.MDException;
-import fr.epsi.i5.medictionary.back.appli.Main;
+import fr.epsi.i5.medictionary.back.appli.MedictionaryBackPharma;
 import fr.epsi.i5.medictionary.back.appli.model.ParamPharma;
 import fr.epsi.i5.medictionary.back.appli.model.Pharmacy;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,7 +15,7 @@ public class PharmacyWS {
 
     @GetMapping("/pharmacy")
     public List<Pharmacy> getPharmacy() throws MDException {
-        return Main.miniDAO.read().getEntities(Pharmacy.class);
+        return MedictionaryBackPharma.miniDAO.read().getEntities(Pharmacy.class);
     }
 
     @GetMapping("/pharmacies")
@@ -35,8 +34,8 @@ public class PharmacyWS {
         }
         rq += ")";
         System.out.println(rq);
-        ResultSet result = Main.miniDAO.executeQuery(rq);
-        pharmacies = Main.miniDAO.mapResultSetToEntities(result, Pharmacy.class);
+        ResultSet result = MedictionaryBackPharma.miniDAO.executeQuery(rq);
+        pharmacies = MedictionaryBackPharma.miniDAO.mapResultSetToEntities(result, Pharmacy.class);
 
         Pharmacy closest = null;
         if(!pharmacies.isEmpty()){
