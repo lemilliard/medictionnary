@@ -24,28 +24,33 @@
                     <p>Utilisez le personnage ci-dessous pour identifier la zone concerné par votre auto-diagnostic.</p>
                     <p>Une liste de symptôme de la zone sélectionné vous sera proposé.</p>
                     <!-- Main heading -->
-					
-					
+
+
                 </div>
-				
-				<div class="col-md-6">
-				<div id="zonesdiv" class="row justify-content-start"></div>
-					<select class="browser-default custom-select">
-					  <option selected>Sélectionnez une zone</option>
-					  <option value="1">One</option>
-					  <option value="2">Two</option>
-					  <option value="3">Three</option>
-					</select>
-				</div>
-				<div class="col-md-6">
-				<div id="zonesdiv" class="row justify-content-start"></div>
-					<select class="browser-default custom-select">
-					  <option selected>Sélectionnez un/des symptôme(s)</option>
-					  <option value="1">One</option>
-					  <option value="2">Two</option>
-					  <option value="3">Three</option>
-					</select>
-				</div>
+
+                <div class="col-md-6">
+                    <div id="zonesdiv" class="row justify-content-start">
+                        <select id="liste-zone" class="browser-default custom-select">
+                            <option selected>Sélectionnez une zone</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div id="symptomesdiv" class="row justify-content-start">
+                        <select id="liste-symptome" class="browser-default custom-select">
+                            <option selected>Sélectionnez un/des symptôme(s)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class=" col-12 col-md-12 col-lg-12 mt-4 mb-4">
+                    <div id="symptomeschoisisdiv" class="row justify-content-start"></div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-12 ">
+                    <button id="diagnostic_btn" type="submit" class="btn btn-default" style="display: none">
+                        Diagnostic
+                    </button>
+                </div>
                 <div class="personnage col-12 col-md-6 col-lg-6">
                     <div class="row justify-content-center">
                         <div class="col col-md-12">
@@ -165,6 +170,7 @@
 </main>
 <!--Main layout-->
 <?php require('footer.php'); ?>
+<script src="js/users/diagnostic.js"></script>
 </body>
 
 </html>

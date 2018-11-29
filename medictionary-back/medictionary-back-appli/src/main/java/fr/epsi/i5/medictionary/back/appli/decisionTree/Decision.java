@@ -34,12 +34,12 @@ public class Decision {
 	private static void initConfig() {
 		config = new Config("./exemples/exemple_medic");
 
-		config.addAttribut("fievre", "non", "oui");
-		config.addAttribut("maux de tête", "non", "oui");
-		config.addAttribut("douleur", "non", "oui");
-		config.addAttribut("insomnie", "non", "oui");
-		config.addAttribut("toux", "non", "oui");
-		config.addAttribut("trouble cardiaque", "non", "oui");
+		config.addAttribut("Fievre", "non", "oui");
+		config.addAttribut("Maux de tête", "non", "oui");
+		config.addAttribut("Douleur", "non", "oui");
+		config.addAttribut("Insomnie", "non", "oui");
+		config.addAttribut("Toux", "non", "oui");
+		config.addAttribut("Trouble cardiaque", "non", "oui");
 
 		config.addDecision("Aspirine");
 		config.addDecision("Clopidogrel");
@@ -78,7 +78,7 @@ public class Decision {
 
 		prepareValueDecide(symptoms, values);
 
-		Result decision = decisionTree.decide(values);
+//		Result decision = decisionTree.decide(values);
 //		if (!decision.getValue().equals("Aucun")) {
 //			listMolecule.push(decision.getValue());
 //		} else {
