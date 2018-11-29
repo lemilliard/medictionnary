@@ -1,25 +1,25 @@
 package fr.epsi.i5.medictionary.database;
 
+import com.lemilliard.filemapper.FMSeparation;
 import fr.epsi.i5.medictionary.database.bdpm.BDPMFactory;
 import fr.epsi.i5.medictionary.database.bdpm.config.Config;
 import fr.epsi.i5.medictionary.database.bdpm.config.Key;
 import fr.epsi.i5.medictionary.database.bdpm.object.Composition;
 import fr.epsi.i5.medictionary.database.bdpm.object.Specialite;
 import fr.epsi.i5.medictionary.database.utils.Util;
-import fr.epsi.i5.medictionary.database.mapper.Separation;
 
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Main {
+public class MedictionaryDatabase {
 
 	/**
 	 * Run the program
 	 *
 	 * @param args String[]
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// Adding shutdownHook to program
 		addShutdownHook();
 
@@ -48,7 +48,7 @@ public class Main {
 
 	private static void initializeConfig() {
 		try {
-			Config.init("medictionary-database/config.txt", Separation.SPACE);
+			Config.init("medictionary-database/config.txt", FMSeparation.SPACE);
 		} catch (Exception e) {
 			Util.exit(e);
 		}

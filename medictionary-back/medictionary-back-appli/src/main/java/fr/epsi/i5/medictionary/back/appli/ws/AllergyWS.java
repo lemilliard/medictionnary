@@ -1,7 +1,7 @@
 package fr.epsi.i5.medictionary.back.appli.ws;
 
 import com.thomaskint.minidao.exception.MDException;
-import fr.epsi.i5.medictionary.back.appli.Main;
+import fr.epsi.i5.medictionary.back.appli.MedictionaryBackAppli;
 import fr.epsi.i5.medictionary.back.appli.model.Allergy;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,17 +12,17 @@ public class AllergyWS {
 
 	@GetMapping("/allergy")
 	public List<Allergy> getAllergys() throws MDException {
-		return Main.miniDAO.read().getEntities(Allergy.class);
+		return MedictionaryBackAppli.miniDAO.read().getEntities(Allergy.class);
 	}
 
 	@GetMapping("/allergy/{id}")
 	public Allergy getAllergy(@PathVariable(name = "id") int id) throws MDException {
-		return Main.miniDAO.read().getEntityById(Allergy.class, id);
+		return MedictionaryBackAppli.miniDAO.read().getEntityById(Allergy.class, id);
 	}
 
 	@PostMapping("/allergy")
 	public Allergy createAllergy(@RequestBody Allergy allergy) throws MDException {
-		if (Main.miniDAO.create().createEntity(allergy)) {
+		if (MedictionaryBackAppli.miniDAO.create().createEntity(allergy)) {
 			return allergy;
 		}
 		return null;
@@ -30,7 +30,7 @@ public class AllergyWS {
 
 	@PutMapping("/allergy")
 	public Allergy updateAllergy(@RequestBody Allergy allergy) throws MDException {
-		if (Main.miniDAO.update().updateEntity(allergy)) {
+		if (MedictionaryBackAppli.miniDAO.update().updateEntity(allergy)) {
 			return allergy;
 		}
 		return null;
@@ -38,11 +38,11 @@ public class AllergyWS {
 
 	@DeleteMapping("/allergy")
 	public boolean deleteAllergy(@RequestBody Allergy allergy) throws MDException {
-		return Main.miniDAO.delete().deleteEntity(allergy);
+		return MedictionaryBackAppli.miniDAO.delete().deleteEntity(allergy);
 	}
 
 	@DeleteMapping("/allergy/{id}")
 	public boolean deleteAllergyById(@PathVariable("id") int id) throws MDException {
-		return Main.miniDAO.delete().deleteEntityById(Allergy.class, id);
+		return MedictionaryBackAppli.miniDAO.delete().deleteEntityById(Allergy.class, id);
 	}
 }

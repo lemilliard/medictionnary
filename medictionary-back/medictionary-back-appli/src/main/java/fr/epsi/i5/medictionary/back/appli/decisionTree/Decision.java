@@ -12,7 +12,7 @@ import com.thomaskint.minidao.enumeration.MDConditionOperator;
 import com.thomaskint.minidao.exception.MDException;
 import com.thomaskint.minidao.querybuilder.MDCondition;
 import com.thomaskint.minidao.querybuilder.MDSelectBuilder;
-import fr.epsi.i5.medictionary.back.appli.Main;
+import fr.epsi.i5.medictionary.back.appli.MedictionaryBackAppli;
 import fr.epsi.i5.medictionary.back.appli.model.*;
 
 import java.sql.ResultSet;
@@ -156,7 +156,7 @@ public class Decision {
 
 	private static boolean isCompatible(String molecule, Stack<String> compatibles, List<Allergy> allergies) throws MDException {
 		MDCondition drugCondition = new MDCondition("molecule", MDConditionOperator.EQUAL, molecule);
-		Drug drug = Main.miniDAO.read().getEntityByCondition(Drug.class, drugCondition);
+		Drug drug = MedictionaryBackAppli.miniDAO.read().getEntityByCondition(Drug.class, drugCondition);
 
 		MDSelectBuilder selectBuilder = new MDSelectBuilder();
 		selectBuilder.from(Incompatibility.class);
@@ -164,8 +164,8 @@ public class Decision {
 		selectBuilder.or("id_drug_two", MDConditionOperator.EQUAL, drug.idDrug);
 
 		String query = selectBuilder.build();
-		ResultSet resultSet = Main.miniDAO.executeQuery(query);
-		List<Incompatibility> incompatibilities = Main.miniDAO.mapResultSetToEntities(resultSet, Incompatibility.class);
+		ResultSet resultSet = MedictionaryBackAppli.miniDAO.executeQuery(query);
+		List<Incompatibility> incompatibilities = MedictionaryBackAppli.miniDAO.mapResultSetToEntities(resultSet, Incompatibility.class);
 
 		int i = 0;
 		int j;
@@ -198,8 +198,8 @@ public class Decision {
 		selectBuilder.where("molecule", MDConditionOperator.EQUAL, molecule);
 
 		String query = selectBuilder.build();
-		ResultSet resultSet = Main.miniDAO.executeQuery(query);
-		DrugSymptom drugSymptom = Main.miniDAO.mapResultSetToEntity(resultSet, DrugSymptom.class);
+		ResultSet resultSet = MedictionaryBackAppli.miniDAO.executeQuery(query);
+		DrugSymptom drugSymptom = MedictionaryBackAppli.miniDAO.mapResultSetToEntity(resultSet, DrugSymptom.class);
 
 		if (drugSymptom != null && drugSymptom.drugs != null) {
 			return drugSymptom.drugs;

@@ -4,7 +4,7 @@ import com.thomaskint.minidao.enumeration.MDConditionLink;
 import com.thomaskint.minidao.enumeration.MDConditionOperator;
 import com.thomaskint.minidao.exception.MDException;
 import com.thomaskint.minidao.querybuilder.MDCondition;
-import fr.epsi.i5.medictionary.back.appli.Main;
+import fr.epsi.i5.medictionary.back.appli.MedictionaryBackAppli;
 import fr.epsi.i5.medictionary.back.appli.model.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,17 +18,17 @@ public class UserWS {
 	@GetMapping("/user")
 	public List<User> getUsers(HttpServletResponse response) throws MDException {
 		response.addCookie(new Cookie("test", "YO"));
-		return Main.miniDAO.read().getEntities(User.class);
+		return MedictionaryBackAppli.miniDAO.read().getEntities(User.class);
 	}
 
 	@GetMapping("/user/{id}")
 	public User getUser(@PathVariable(name = "id") int id) throws MDException {
-		return Main.miniDAO.read().getEntityById(User.class, id);
+		return MedictionaryBackAppli.miniDAO.read().getEntityById(User.class, id);
 	}
 
 	@PostMapping("/user")
 	public User createUser(@RequestBody User user) throws MDException {
-		if (Main.miniDAO.create().createEntity(user) && user.idUser != null) {
+		if (MedictionaryBackAppli.miniDAO.create().createEntity(user) && user.idUser != null) {
 			return user;
 		}
 		return null;
@@ -36,7 +36,7 @@ public class UserWS {
 
 	@PutMapping("/user")
 	public User updateUser(@RequestBody User user) throws MDException {
-		if (Main.miniDAO.update().updateEntity(user)) {
+		if (MedictionaryBackAppli.miniDAO.update().updateEntity(user)) {
 			return user;
 		}
 		return null;
@@ -44,12 +44,12 @@ public class UserWS {
 
 	@DeleteMapping("/user")
 	public boolean deleteUser(@RequestBody User user) throws MDException {
-		return Main.miniDAO.delete().deleteEntity(user);
+		return MedictionaryBackAppli.miniDAO.delete().deleteEntity(user);
 	}
 
 	@DeleteMapping("/user/{id}")
 	public boolean deleteUserById(@PathVariable("id") int id) throws MDException {
-		return Main.miniDAO.delete().deleteEntityById(User.class, id);
+		return MedictionaryBackAppli.miniDAO.delete().deleteEntityById(User.class, id);
 	}
 
 	@PostMapping("/user/login")
@@ -58,7 +58,7 @@ public class UserWS {
 		if (user != null) {
 			MDCondition loginCondition = new MDCondition("login", MDConditionOperator.EQUAL, user.login);
 			MDCondition condition = new MDCondition("password", MDConditionOperator.EQUAL, user.password, MDConditionLink.AND, loginCondition);
-			connectedUser = Main.miniDAO.read().getEntityByCondition(User.class, condition);
+			connectedUser = MedictionaryBackAppli.miniDAO.read().getEntityByCondition(User.class, condition);
 		}
 		return connectedUser;
 	}

@@ -1,12 +1,13 @@
 package fr.epsi.i5.medictionary.database.bdpm;
 
+import com.lemilliard.filemapper.FMSeparation;
+import com.lemilliard.filemapper.FileMapper;
 import fr.epsi.i5.medictionary.database.bdpm.config.Key;
 import fr.epsi.i5.medictionary.database.bdpm.object.*;
 import fr.epsi.i5.medictionary.database.bdpm.config.Config;
 import fr.epsi.i5.medictionary.database.bdpm.config.Retriever;
-import fr.epsi.i5.medictionary.database.mapper.Mapper;
-import fr.epsi.i5.medictionary.database.mapper.Separation;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,47 +15,47 @@ import java.util.List;
  */
 public class BDPMFactory {
 
-	private static final Separation separation = Separation.TAB;
+	private static final FMSeparation separation = FMSeparation.TAB;
 
-	public static List<Specialite> getSpecialites() {
+	public static List<Specialite> getSpecialites() throws Exception {
 		return getEntities(Key.FILE_SPECIALITE, Specialite.class);
 	}
 
-	public static List<Presentation> getPresentations() {
+	public static List<Presentation> getPresentations() throws Exception {
 		return getEntities(Key.FILE_PRESENTATION, Presentation.class);
 	}
 
-	public static List<Composition> getCompositions() {
+	public static List<Composition> getCompositions() throws Exception {
 		return getEntities(Key.FILE_COMPOSITION, Composition.class);
 	}
 
-	public static List<AvisSMR> getAvisSMRs() {
+	public static List<AvisSMR> getAvisSMRs() throws Exception {
 		return getEntities(Key.FILE_AVIS_SMR, AvisSMR.class);
 	}
 
-	public static List<AvisASMR> getAvisASMRs() {
+	public static List<AvisASMR> getAvisASMRs() throws Exception {
 		return getEntities(Key.FILE_AVIS_ASMR, AvisASMR.class);
 	}
 
-	public static List<AvisCommission> getAvisCommissions() {
+	public static List<AvisCommission> getAvisCommissions() throws Exception {
 		return getEntities(Key.FILE_AVIS_COMMISSION, AvisCommission.class);
 	}
 
-	public static List<GroupeGenerique> getGroupeGeneriques() {
+	public static List<GroupeGenerique> getGroupeGeneriques() throws Exception {
 		return getEntities(Key.FILE_GROUPE_GENERIQUE, GroupeGenerique.class);
 	}
 
-	public static List<ConditionPrescriptionDelivrance> getConditionPrescriptionDelivrances() {
+	public static List<ConditionPrescriptionDelivrance> getConditionPrescriptionDelivrances() throws Exception {
 		return getEntities(Key.FILE_CONDITION_PRESCRIPTION_DELIVRANCE, ConditionPrescriptionDelivrance.class);
 	}
 
-	public static List<InformationImportante> getInformationImportantes() {
+	public static List<InformationImportante> getInformationImportantes() throws Exception {
 		return getEntities(Key.FILE_INFORMATION_IMPORTANTE, InformationImportante.class);
 	}
 
-	private static <T> List<T> getEntities(Key key, Class<T> entityClass) {
+	private static <T> List<T> getEntities(Key key, Class<T> entityClass) throws Exception {
 		Retriever.retrieveFile(key);
 
-		return Mapper.map(entityClass, Config.getFilePath(key), separation);
+		return FileMapper.map(entityClass, Config.getFilePath(key), separation);
 	}
 }
