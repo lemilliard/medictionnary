@@ -38,10 +38,6 @@ public class PrescriptionWS {
                 }
                 return drugPrescriptions;
 	}
-         @GetMapping("/mescoullaisses")
-        public String test() {
-            return "mes coullaisses";
-        }
 
 	@PostMapping("/prescription")
 	public Prescription createPrescription(@RequestBody PrescriptionParam prescriptionParam) throws MDException {
