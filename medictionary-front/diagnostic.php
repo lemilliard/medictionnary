@@ -5,6 +5,32 @@
 <?php require ('entete.php'); ?>
 
 <body>
+	<script>
+	function maPosition(position) {
+	  var infopos = "Position déterminée :\n";
+	  infopos += "Latitude : "+position.coords.latitude +"\n";
+	  infopos += "Longitude: "+position.coords.longitude+"\n";
+	  alert(infopos);
+	  $.ajax({
+					url: "https://192.168.112.17:8444/pharmacies",
+					method: "POST",
+					contentType: "application/json",
+					data: JSON.stringify({ casDrug: ["68-88-2"], latitude: position.coords.latitude, longitude: position.coords.longitude }),
+					success: function (response) {
+						alert('succes');
+						console.log(response);
+						},
+					error: function (response) {
+						alert('error');
+						$('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
+						console.log(response);
+					}
+				});
+	}
+
+	if(navigator.geolocation)
+	  navigator.geolocation.getCurrentPosition(maPosition);
+	</script>
 
   <?php require ('header.php'); ?>
 
@@ -27,10 +53,10 @@
 						$loc = $_GET['loc'];				
 						switch($loc){
 							case "earg":
-								$zone = "Oreille gauche";
+								$zone = "Oreille";
 								break;
 							case "eard":
-								$zone = "Oreille droite";
+								$zone = "Oreille";
 								break;
 							case "head":
 								$zone = "Cheveux";
@@ -39,10 +65,10 @@
 								$zone = "Tête";
 								break;
 							case "eyeg":
-								$zone = "Oeil gauche";
+								$zone = "Oeil";
 								break;
 							case "eyed":
-								$zone = "Oeil droit";
+								$zone = "Oeil";
 								break;
 							case "nose":
 								$zone = "Nez";
@@ -54,46 +80,46 @@
 								$zone = "Cou";
 								break;
 							case "armg":
-								$zone = "Bras gauche";
+								$zone = "Bras";
 								break;
 							case "handg":
-								$zone = "Main gauche";
+								$zone = "Main";
 								break;
 							case "body":
 								$zone = "Corps";
 								break;
 							case "armd":
-								$zone = "Bras droit";
+								$zone = "Bras";
 								break;
 							case "handd":
-								$zone = "Main droite";
+								$zone = "Main";
 								break;
 							case "legg":
-								$zone = "Jambe gauche";
+								$zone = "Jambe";
 								break;
 							case "footg":
-								$zone = "Pied gauche";
+								$zone = "Pied";
 								break;
 							case "legd":
-								$zone = "Jambe droite";
+								$zone = "Jambe";
 								break;
 							case "footr":
-								$zone = "Pied droit";
+								$zone = "Pied";
 								break;
 						}
 						
-//						$url = "192.168.112.17/symptomZone/"
-//						$ch = curl_init();
-//						curl_setopt_array($curl, array(
-//							CURLOPT_RETURNTRANSFER => 1,
-//							CURLOPT_URL => $url + $zone
-//						));
-//
-//						$result = curl_exec($ch);
-//
-//						curl_close($ch);
-//
-//						var_dump(json_decode($result, true));
+						// $url = "192.168.112.17:8443/symptomZone/"
+						// $ch = curl_init();
+						// curl_setopt_array($curl, array(
+							// CURLOPT_RETURNTRANSFER => 1,
+							// CURLOPT_URL => $url + $zone
+						// ));
+						
+						// $result = curl_exec($ch);
+						
+						// curl_close($ch);
+						
+						// var_dump(json_decode($result, true));
 						?>
 						<!-- Title -->
 						 <h2 class="h3 mb-3">Auto Diagnostic <?php echo $zone; ?></h2>
