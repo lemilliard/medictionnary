@@ -318,3 +318,9 @@ body,
 /* Footer color for sake of consistency with Navbar */
 .page-footer {
   background-color: #1C2331; }
+
+
+.badge {
+    line-height: 25px !important;
+    padding: 5px 12px !important;
+}

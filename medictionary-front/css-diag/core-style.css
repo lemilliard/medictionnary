@@ -1612,3 +1612,8 @@ span.accor-open {
 .single-icon-box img {
     margin-bottom: 15px;
 }
+
+.badge {
+    line-height: 25px !important;
+    padding: 5px 12px !important;
+}

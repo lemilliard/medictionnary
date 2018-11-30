@@ -19,7 +19,7 @@ $(document).ready(function () {
                             }
                         });
 
-                        var div = '<div class="col-3 col-md-3 col-lg-3" style="margin-bottom: 30px">' +
+                        var div = '<div class="col-12 col-sm-12 col-md-3 col-lg-3" style="margin-bottom: 30px">' +
                             '<h4>' + drug.name + '</h4>' +
                             '(' + drug.molecule + ')<br/>' +
                             '<label class="bs-switch">' +

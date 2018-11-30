@@ -29,7 +29,7 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php') {
 
             <!-- Brand -->
             <a class="navbar-brand" href="https://medictionnary.cgonline.fr">
-                <i class="fa fa-medkit ml-2"></i> <strong>MEDICTIONARY</strong>
+                <i class="fa fa-heartbeat" aria-hidden="true"></i> <strong>MEDICTIONARY</strong>
             </a>
 
             <!-- Collapse -->

@@ -150,12 +150,12 @@ $(document).ready(function () {
                 return sz.idSymptomZone === idSymptomZone;
             });
             if (!selectedSymptomeZones.includes(symptomZone)) {
-                var div = '<span id="symptom-item-'
+                var div = '<span style="line-height: 25px !important; padding: 5px 12px;" id="symptom-item-'
                     + symptomZone.idSymptomZone
                     + '" class="badge badge-warning"' +
                     ' onclick="removeSymptom(' + symptomZone.idSymptomZone + ')">'
                     + symptomZone.nameZone + ' - ' + symptomZone.symptom.name
-                    + '</span>';
+                    + '&nbsp;&nbsp; <i class="fa fa-times-circle" onclick="removeSymptom(\' + symptomZone.idSymptomZone + \')"></i></span>&nbsp;&nbsp;&nbsp;';
                 $('#symptomeschoisisdiv').append(div);
                 $('#diagnostic_btn').show();
                 selectedSymptomeZones.push(symptomZone);

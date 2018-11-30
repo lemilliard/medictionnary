@@ -24,8 +24,12 @@
                     <!--                    <p>Utilisez le personnage ci-dessous pour identifier la zone concerné par votre auto-diagnostic.</p>-->
                     <p>Utilisez les listes de symptômes pour débuter votre diagnostic.</p>
                     <!-- Main heading -->
-                </div>
 
+						<?php if (!$is_login) { echo '<div class="alert alert-primary" role="alert">';echo "Vous devez être connecté pour faire un diagnostic"; echo '</div>'; } ?>
+	
+
+				</div>
+				
                 <div class="col-md-6">
                     <div id="zonesdiv" class="row justify-content-justify text-center">
                         <select id="liste-zone" class="browser-default custom-select">
@@ -45,7 +49,7 @@
                     <div id="symptomeschoisisdiv" class="row justify-content-start"></div>
                 </div>
                 <div class="col-12 col-md-12 col-lg-12 text-center">
-                    <?php if (!$is_login) { echo "Vous devez être connecté pour faire un diagnostic"; } ?>
+                    
                     <button id="diagnostic_btn" type="submit" class="btn btn-default" data-toggle="modal"
                             data-target="#modalDiagnosticUser" style="display: none"
                         <?php if (!$is_login) {
