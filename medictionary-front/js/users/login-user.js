@@ -1,36 +1,37 @@
 $(document).ready(function () {
     $('#login_form').on("submit", function (event) {
-
         event.preventDefault();
-        if ($('#loginc').val() == "") {
+
+        var login = $('#loginc').val();
+        var password = $('#passwordc').val();
+
+        if (login === "") {
             alert("Un nom d'utilisateur est requis");
         }
-        else if ($('#passwordc').val() == '') {
+        else if (password === '') {
             alert("Un mot de passe est requis");
         }
 
         else {
-
-            var mylogin = $('#loginc').val();
-            var mypassword = $('#passwordc').val()
-
             $.ajax({
-                url: "https://192.168.112.17:8443/user/login",
+                url: "https://localhost:8443/user/login",
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify({ login: mylogin, password: mypassword }),
+                data: JSON.stringify({ login: login, password: password }),
                 beforeSend: function () {
                     $('#login_form_btn').val("Connexion en cours");
                 },
                 success: function (response) {
-                    $('#login').val('');
-                    $('#password').val('');
-                    $('.statusMsg').html('<span style="color:green;">Identifiants corrects.</p>');
-                    console.log(response);
-                    localStorage.setItem("user", JSON.stringify(response));
-                    document.cookie = "idUser=" + response.idUser;
-                    document.location.href = "/edit-user";
-
+                    $('#passwordc').val('');
+                    if (response.idUser) {
+                        $('#loginc').val('');
+                        $('.statusMsg').html('<span style="color:green;">Identifiants corrects.</p>');
+                        localStorage.setItem("user", JSON.stringify(response));
+                        document.cookie = "idUser=" + response.idUser;
+                        document.location.href = "/edit-user";
+                    } else {
+                        $('.statusMsg').html('<span style="color:red;">Identifiants incorrects.</p>');
+                    }
                 },
                 error: function (response) {
                     alert('error');

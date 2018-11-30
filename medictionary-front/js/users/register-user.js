@@ -26,7 +26,7 @@ $(document).ready(function () {
             var mypassword = $('#password').val()
 
             $.ajax({
-                url: "https://192.168.112.17:8443/user",
+                url: "https://localhost:8443/user",
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({

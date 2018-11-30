@@ -8,8 +8,8 @@ import com.thomaskint.minidao.annotation.MDId;
 public class Pharmacy {
 
     @MDId
-    @MDField(fieldName = "id_pharmacy")
-    public Integer idPharmacy;
+    @MDField(fieldName = "code_pharmacy")
+    public Integer codePharmacy;
 
     @MDField(fieldName = "name")
     public String name;

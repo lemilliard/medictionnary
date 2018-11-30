@@ -26,7 +26,7 @@ public class DecisionTreeWS {
 		MDCondition drugCondition;
 		Set<Drug> drugs = new HashSet<>();
 		for (String molecule : molecules) {
-			drugCondition = new MDCondition("molecule", MDConditionOperator.EQUAL, molecule);
+			drugCondition = new MDCondition("molecule", MDConditionOperator.LIKE, "%" + molecule + "%");
 			drugs.add(MedictionaryBackAppli.miniDAO.read().getEntityByCondition(Drug.class, drugCondition));
 		}
 		return drugs;

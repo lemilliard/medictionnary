@@ -18,18 +18,18 @@ public class PharmacyWS {
 		return MedictionaryBackPharma.miniDAO.read().getEntities(Pharmacy.class);
 	}
 
-	@PostMapping("/pharmacies")
+	@PostMapping("/pharmacy/search")
 	public Pharmacy getPharmacyWithDrugs(@RequestBody ParamPharma param) throws MDException {
 
 		List<Pharmacy> pharmacies;
 		boolean isFirst = true;
-		StringBuilder rqBuilder = new StringBuilder("select p.* from medictionary_pharma.pharmacy as p where p.id_pharmacy in(");
+		StringBuilder rqBuilder = new StringBuilder("select p.* from medictionary_pharma.pharmacy as p where p.code_pharmacy in(");
 		for (String cas : param.casDrug) {
 			if (isFirst) {
-				rqBuilder.append("select s.id_pharmacy from medictionary_pharma.stock as s where (s.cas_drug = \'").append(cas).append("\' and s.quantity > 0) ");
+				rqBuilder.append("select s.code_pharmacy from medictionary_pharma.stock as s where (s.cas_drug = \'").append(cas).append("\' and s.quantity > 0) ");
 				isFirst = false;
 			} else {
-				rqBuilder.append("and s.id_pharmacy in (select s.id_pharmacy from medictionary_pharma.stock as s where (s.cas_drug = \'").append(cas).append("\' and s.quantity > 0)) ");
+				rqBuilder.append("and s.code_pharmacy in (select s.code_pharmacy from medictionary_pharma.stock as s where (s.cas_drug = \'").append(cas).append("\' and s.quantity > 0)) ");
 			}
 		}
 		String rq = rqBuilder.toString();

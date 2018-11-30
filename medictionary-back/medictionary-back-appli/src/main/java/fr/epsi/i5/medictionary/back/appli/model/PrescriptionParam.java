@@ -14,5 +14,7 @@ public class PrescriptionParam {
 
 	public Integer idUser;
 
+	public Integer codePharmacy;
+
 	public List<Drug> drugs;
 }

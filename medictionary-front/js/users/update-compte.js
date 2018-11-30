@@ -23,7 +23,7 @@ $(document).ready(function () {
 			var newpass = $('#new-password').val();
 
             $.ajax({
-                url: "https://192.168.112.17:8443/user",
+                url: "https://localhost:8443/user",
                 method: "PUT",
                 contentType: "application/json",
                 data: JSON.stringify({

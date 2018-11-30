@@ -1,40 +1,94 @@
 var user = JSON.parse(localStorage.getItem("user"));
-var symptomes = [];
+var prescription = [];
+var symptomZones = [];
+var selectedSymptomeZones = [];
+var codePharmacy = null;
 
 function maPosition(position) {
-    var infopos = "Position déterminée :\n";
-    infopos += "Latitude : " + position.coords.latitude + "\n";
-    infopos += "Longitude: " + position.coords.longitude + "\n";
+    prescription = [];
+    var symptoms = selectedSymptomeZones.map(function (symptomZone) {
+        return { name: symptomZone.symptom.name };
+    });
     $.ajax({
-        url: "https://192.168.112.17:8443/decision",
+        url: "https://localhost:8443/decision",
         method: "POST",
         contentType: "application/json",
-        data: JSON.stringify({ idUser: user.idUser, symptoms: symptomes }),
+        data: JSON.stringify({ idUser: user.idUser, symptoms: symptoms }),
+        beforeSend: function () {
+            $('#prescription_modal').html("Evaluation des médicaments");
+        },
         success: function (drugs) {
-            var casDrug = [];
+            if (drugs.length > 0) {
+                var casDrug = [];
 
-            drugs.forEach(function (drug) {
-                if (!casDrug.includes(drug.cas))
-                    casDrug.push(drug.cas);
-            });
+                drugs.forEach(function (drug) {
+                    if (!casDrug.includes(drug.cas)) {
+                        casDrug.push(drug.cas);
+                        prescription.push(drug);
+                    }
+                });
 
-            $.ajax({
-                url: "https://192.168.112.17:8444/pharmacies",
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    casDrug: casDrug,
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                }),
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (response) {
-                    alert('error');
-                    $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
-                    console.log(response);
-                }
+                var prescri = '<h5>Médicaments</h5><br/>';
+                prescription.forEach(function (drug) {
+                    prescri += drug.name + ' (' + drug.molecule + ')<br/>';
+                });
+                $('#prescription_modal').html(prescri);
+
+                $.ajax({
+                    url: "https://localhost:8444/pharmacy/search",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        casDrug: casDrug,
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    }),
+                    beforeSend: function () {
+                        $('#pharmacie_modal').html("Evaluation de la pharmacie");
+                    },
+                    success: function (pharmay) {
+                        var pharma = '<h5>Pharmacie la plus proche</h5><br/>' +
+                            pharmay.name + '<br/>' +
+                            pharmay.postalCode + '<br/>';
+                        codePharmacy = pharmay.codePharmacy;
+                        $('#pharmacie_modal').html(pharma);
+                    },
+                    error: function (response) {
+                        alert('error');
+                        $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
+                        console.log(response);
+                    }
+                });
+            } else {
+                $('#prescription_modal').html("Pas de médicaments trouvés<br/><br/>Contactez votre médecin");
+                $('#prescription_btn').hide();
+            }
+        },
+        error: function (response) {
+            $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
+            console.log(response);
+        }
+    });
+}
+
+function removeSymptom(idSymptomZone) {
+    $('#symptom-item-' + idSymptomZone).remove();
+    selectedSymptomeZones = selectedSymptomeZones.filter(function (symptomZone) {
+        return symptomZone.idSymptomZone !== idSymptomZone;
+    });
+    if (selectedSymptomeZones.length === 0) {
+        $('#diagnostic_btn').hide();
+    }
+}
+
+function initSymptoms() {
+    $.ajax({
+        url: "https://localhost:8443/symptom",
+        method: "GET",
+        success: function (symptoms) {
+            symptoms.forEach(function (symptom) {
+                var div = '<option value="' + symptom.id + '">' + symptom.name + '</option>';
+                $("#liste-symptome").append(div);
             });
         },
         error: function (response) {
@@ -45,9 +99,10 @@ function maPosition(position) {
 }
 
 $(document).ready(function () {
+    initSymptoms();
 
     $.ajax({
-        url: "https://192.168.112.17:8443/zone",
+        url: "https://localhost:8443/zone",
         method: "GET",
         success: function (zones) {
             zones.forEach(function (zone) {
@@ -61,48 +116,51 @@ $(document).ready(function () {
         }
     });
 
-    $.ajax({
-        url: "https://192.168.112.17:8443/symptom",
-        method: "GET",
-        success: function (symptoms) {
-            symptoms.forEach(function (symptom) {
-                var div = '<option value="' + symptom.id + '">' + symptom.name + '</option>';
-                $("#liste-symptome").append(div);
+
+    $('#liste-zone').change(function () {
+        var zone = $('#liste-zone').val();
+        $('#liste-symptome').find('option:not(:first)').remove();
+        if (zone === "-1") {
+            initSymptoms();
+        } else {
+            $.ajax({
+                url: "https://localhost:8443/symptomZone/" + zone,
+                method: "GET",
+                success: function (retrievedSymptomZones) {
+                    retrievedSymptomZones.forEach(function (symptomZone) {
+                        if (!symptomZones.includes(symptomZone)) {
+                            symptomZones.push(symptomZone);
+                        }
+                        var div = '<option value="' + symptomZone.idSymptomZone + '">' + symptomZone.symptom.name + '</option>';
+                        $("#liste-symptome").append(div);
+                    });
+                },
+                error: function (response) {
+                    $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
+                    console.log(response);
+                }
             });
-        },
-        error: function (response) {
-            $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
-            console.log(response);
         }
     });
 
-    $('#liste-zone').change(function () {
-        var myzone = $('#liste-zone').val();
-        $('#liste-symptome').find('option:not(:first)').remove();
-        $.ajax({
-            url: "https://192.168.112.17:8443/symptomZone/" + myzone,
-            method: "GET",
-            success: function (symptomzones) {
-                symptomzones.forEach(function (symptomzone) {
-                    var div = '<option value="' + symptomzone.symptom.name + '">' + symptomzone.symptom.name + '</option>';
-                    $("#liste-symptome").append(div);
-                });
-            },
-            error: function (response) {
-                $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
-                console.log(response);
-            }
-        });
-    });
-
     $('#liste-symptome').change(function () {
-        $('#diagnostic_btn').show();
-        var zone = $('#liste-zone').val();
-        var symptom = $('#liste-symptome').val();
-        var div = '<span class="badge badge-warning">' + zone + ' - ' + symptom + '</span>';
-        $('#symptomeschoisisdiv').append(div);
-        symptomes.push({ name: symptom });
-        console.log(symptomes);
+        var idSymptomZone = parseInt($('#liste-symptome').val(), 10);
+        if (idSymptomZone > -1) {
+            var symptomZone = symptomZones.find(function (sz) {
+                return sz.idSymptomZone === idSymptomZone;
+            });
+            if (!selectedSymptomeZones.includes(symptomZone)) {
+                var div = '<span id="symptom-item-'
+                    + symptomZone.idSymptomZone
+                    + '" class="badge badge-warning"' +
+                    ' onclick="removeSymptom(' + symptomZone.idSymptomZone + ')">'
+                    + symptomZone.nameZone + ' - ' + symptomZone.symptom.name
+                    + '</span>';
+                $('#symptomeschoisisdiv').append(div);
+                $('#diagnostic_btn').show();
+                selectedSymptomeZones.push(symptomZone);
+            }
+        }
     });
 
     $('#diagnostic_btn').on('click', function (event) {
@@ -112,5 +170,29 @@ $(document).ready(function () {
             navigator.geolocation.getCurrentPosition(maPosition);
         }
     });
-});
+
+    $('#prescription_btn').on('click', function (event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "https://localhost:8443/prescription",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ idUser: user.idUser, codePharmacy: codePharmacy, drugs: prescription }),
+            beforeSend: function () {
+                $('#prescription_btn').html("Prescription en cours");
+            },
+            success: function () {
+                $('#prescription_btn').hide();
+                $('#prescription_ended_btn').show();
+            },
+            error: function (response) {
+                alert('error');
+                $('.statusMsg').html('<span style="color:red;">Un problème est survenu, merci de ré-essayer.</span>');
+                console.log(response);
+            }
+        })
+    });
+})
+;
 

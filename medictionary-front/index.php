@@ -20,25 +20,23 @@
                 <!--Grid column-->
                 <div class="col-md-12 mb-4">
                     <!-- Main heading -->
-                    <h2 class="h3 mb-3">Réalise ton auto-diagnostic maintenant</h2>
-                    <p>Utilisez le personnage ci-dessous pour identifier la zone concerné par votre auto-diagnostic.</p>
-                    <p>Une liste de symptôme de la zone sélectionné vous sera proposé.</p>
+                    <h2 class="h3 mb-3">Réalisez votre diagnostic maintenant</h2>
+                    <!--                    <p>Utilisez le personnage ci-dessous pour identifier la zone concerné par votre auto-diagnostic.</p>-->
+                    <p>Utilisez les listes de symptômes pour débuter votre diagnostic.</p>
                     <!-- Main heading -->
-
-
                 </div>
 
                 <div class="col-md-6">
                     <div id="zonesdiv" class="row justify-content-justify text-center">
                         <select id="liste-zone" class="browser-default custom-select">
-                            <option selected>Sélectionnez une zone</option>
+                            <option selected value="-1">Sélectionnez une zone</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div id="symptomesdiv" class="row justify-content-start">
                         <select id="liste-symptome" class="browser-default custom-select">
-                            <option selected>Sélectionnez un/des symptôme(s)</option>
+                            <option selected value="-1">Sélectionnez un/des symptôme(s)</option>
                         </select>
                     </div>
                 </div>
@@ -46,12 +44,51 @@
                 <div class=" col-12 col-md-12 col-lg-12 mt-4 mb-4">
                     <div id="symptomeschoisisdiv" class="row justify-content-start"></div>
                 </div>
-					<div class="col-12 col-md-12 col-lg-12 text-center">
-						<button id="diagnostic_btn" type="submit" class="btn btn-default" data-toggle="modal"
-                                data-target="#modalDiagnosticUser" style="display: none">
-							Diagnostic
-						</button>
-					</div>
+                <div class="col-12 col-md-12 col-lg-12 text-center">
+                    <?php if (!$is_login) { echo "Vous devez être connecté pour faire un diagnostic"; } ?>
+                    <button id="diagnostic_btn" type="submit" class="btn btn-default" data-toggle="modal"
+                            data-target="#modalDiagnosticUser" style="display: none"
+                        <?php if (!$is_login) {
+                            echo "disabled";
+                        } ?>>
+                        Diagnostic
+                    </button>
+                </div>
+
+                <div class="modal fade" id="modalDiagnosticUser" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">
+                                    Prescription
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-12">
+                                <div id="prescription_modal" class="mb-6">
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="modal-body mx-12">
+                                <div id="pharmacie_modal" class="mb-6">
+                                </div>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button id="prescription_btn" class="btn btn-default">
+                                    Valider
+                                </button>
+                                <button id="prescription_ended_btn" class="btn btn-warning" style="display: none"
+                                        onclick="location.href = '/commandes';">
+                                    Prescription terminée
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!--<div class="personnage col-12 col-md-6 col-lg-6">
                     <div class="row justify-content-center">
                         <div class="col col-md-12">

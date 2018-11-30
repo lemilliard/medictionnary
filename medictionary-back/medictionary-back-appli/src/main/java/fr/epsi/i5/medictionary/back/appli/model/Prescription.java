@@ -19,6 +19,9 @@ public class Prescription {
 	@MDField(fieldName = "id_user")
 	public Integer idUser;
 
+	@MDField(fieldName = "code_pharmacy")
+	public Integer codePharmacy;
+
 	@MDOneToMany(fieldName = "id_prescription", targetFieldName = "id_prescription", target = DrugPrescription.class, loadPolicy = MDLoadPolicy.HEAVY)
 	public List<DrugPrescription> drugPrescriptions;
 }

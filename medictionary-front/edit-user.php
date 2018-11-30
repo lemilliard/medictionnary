@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Auto-diagnostic & Précommande en ligne avec Medictionnary</title>
+    <title>Auto-diagnostic & Précommande en ligne avec Medictionary</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
@@ -65,10 +65,8 @@
 <!--Main layout-->
 <main>
     <div id="autodiagnostic" class="container">
-
         <!--Section: Main info-->
         <section class="mt-5">
-
             <!--Grid row-->
             <div class="row justify-content-center text-center">
                 <div class="col-12 col-lg-12 ">
@@ -76,45 +74,38 @@
                 </div>
                 <!--Grid column-->
                 <div class="col-md-8 mb-4 ">
-
-
                     <h2 class="h3 mt-4 mb-3">Modifier profil</h2>
                     <form id="update_user" class="md-form">
                         <div class="mx-3">
                             <div class="md-form mb-5">
-
                                 <input type="text" id="socialSecurityNumberBis" class="form-control validate">
-                                <label id="socialSecurityNumberBisLabel" data-error="wrong" data-success="right" for="socialSecurityNumberBis">Numéro
+                                <label id="socialSecurityNumberBisLabel" data-error="wrong" data-success="right"
+                                       for="socialSecurityNumberBis">Numéro
                                     sécurité sociale</label>
                             </div>
                             <div class="md-form mb-5">
                                 <input type="text" id="firstnameBis" class="form-control validate">
-                                <label id="firstnameBisLabel" data-error="wrong" data-success="right" for="firstnameBis">Prénom</label>
+                                <label id="firstnameBisLabel" data-error="wrong" data-success="right"
+                                       for="firstnameBis">Prénom</label>
                             </div>
 
                             <div class="md-form mb-5">
-
                                 <input type="text" id="lastnameBis" class="form-control validate">
                                 <label id="lastnameBisLabel" data-error="wrong" data-success="right"
                                        for="lastnameBis">Nom</label>
                             </div>
 
-
                             <div class="md-form mb-5">
-
                                 <input type="text" id="weightBis" class="form-control validate">
-                                <label id="weightBisLabel" data-error="wrong" data-success="right" for="weightBis">Poids</label>
+                                <label id="weightBisLabel" data-error="wrong" data-success="right"
+                                       for="weightBis">Poids</label>
                             </div>
-
 
                         </div>
                         <button type="submit" id="update_user_btn" class="btn btn-default">Enregistrer</button>
                     </form>
                 </div>
-
-
             </div>
-
     </div>
     <!--Grid column-->
 
@@ -123,8 +114,6 @@
 
     </section>
     <!--Section: Main info-->
-
-
     </div>
 </main>
 <!--Main layout-->

@@ -3,12 +3,12 @@ $(document).ready(function () {
 
     var documentDrugs = [];
     $.ajax({
-        url: "https://192.168.112.17:8443/drug",
+        url: "https://localhost:8443/drug",
         method: "GET",
         success: function (drugs) {
             documentDrugs = drugs;
             $.ajax({
-                url: "https://192.168.112.17:8443/allergy/user/" + user.idUser,
+                url: "https://localhost:8443/allergy/user/" + user.idUser,
                 method: "GET",
                 success: function (allergies) {
                     drugs.forEach(function (drug) {
@@ -19,8 +19,9 @@ $(document).ready(function () {
                             }
                         });
 
-                        var div = '<div class="col-3 col-md-3 col-lg-3 ">' +
+                        var div = '<div class="col-3 col-md-3 col-lg-3" style="margin-bottom: 30px">' +
                             '<h4>' + drug.name + '</h4>' +
+                            '(' + drug.molecule + ')<br/>' +
                             '<label class="bs-switch">' +
                             '<input type="checkbox" id="allergies-' + drug.idDrug + '"' +
                             (hasAllergy ? 'checked' : '') + '>' +
@@ -46,7 +47,7 @@ $(document).ready(function () {
             allergies.push({ idDrug: drug.idDrug, idUser: user.idUser, valid: isChecked });
         });
         $.ajax({
-            url: "https://192.168.112.17:8443/allergy/user/" + user.idUser,
+            url: "https://localhost:8443/allergy/user/" + user.idUser,
             method: "PUT",
             contentType: "application/json",
             data: JSON.stringify(allergies),

@@ -135,7 +135,7 @@ public class Decision {
 				compatibles.push(currentMolecule);
 			} else {
 				equivalences = getEquivalences(currentMolecule);
-				if (equivalences.isEmpty()) {
+				if (equivalences.isEmpty() && !compatibles.empty()) {
 					molecules.push(compatibles.pop());
 				} else {
 					i = 0;
@@ -155,38 +155,40 @@ public class Decision {
 	}
 
 	private static boolean isCompatible(String molecule, Stack<String> compatibles, List<Allergy> allergies) throws MDException {
-		MDCondition drugCondition = new MDCondition("molecule", MDConditionOperator.EQUAL, molecule);
+		boolean compatible = true;
+		MDCondition drugCondition = new MDCondition("molecule", MDConditionOperator.LIKE, "%" + molecule + "%");
 		Drug drug = MedictionaryBackAppli.miniDAO.read().getEntityByCondition(Drug.class, drugCondition);
 
-		MDSelectBuilder selectBuilder = new MDSelectBuilder();
-		selectBuilder.from(Incompatibility.class);
-		selectBuilder.where("id_drug_one", MDConditionOperator.EQUAL, drug.idDrug);
-		selectBuilder.or("id_drug_two", MDConditionOperator.EQUAL, drug.idDrug);
+		if (drug != null) {
+			MDSelectBuilder selectBuilder = new MDSelectBuilder();
+			selectBuilder.from(Incompatibility.class);
+			selectBuilder.where("id_drug_one", MDConditionOperator.EQUAL, drug.idDrug);
+			selectBuilder.or("id_drug_two", MDConditionOperator.EQUAL, drug.idDrug);
 
-		String query = selectBuilder.build();
-		ResultSet resultSet = MedictionaryBackAppli.miniDAO.executeQuery(query);
-		List<Incompatibility> incompatibilities = MedictionaryBackAppli.miniDAO.mapResultSetToEntities(resultSet, Incompatibility.class);
+			String query = selectBuilder.build();
+			ResultSet resultSet = MedictionaryBackAppli.miniDAO.executeQuery(query);
+			List<Incompatibility> incompatibilities = MedictionaryBackAppli.miniDAO.mapResultSetToEntities(resultSet, Incompatibility.class);
 
-		int i = 0;
-		int j;
-		boolean compatible = true;
-		while (i < incompatibilities.size() && compatible) {
-			j = 0;
-			while (j < compatibles.size() && compatible) {
-				if ((incompatibilities.get(i).drugOne.idDrug.equals(drug.idDrug) && compatibles.get(j).equals(incompatibilities.get(i).drugTwo.molecule)) ||
-						(incompatibilities.get(i).drugTwo.idDrug.equals(drug.idDrug) && compatibles.get(j).equals(incompatibilities.get(i).drugOne.molecule))) {
-					compatible = false;
+			int i = 0;
+			int j;
+			while (i < incompatibilities.size() && compatible) {
+				j = 0;
+				while (j < compatibles.size() && compatible) {
+					if ((incompatibilities.get(i).drugOne.idDrug.equals(drug.idDrug) && compatibles.get(j).equals(incompatibilities.get(i).drugTwo.molecule)) ||
+							(incompatibilities.get(i).drugTwo.idDrug.equals(drug.idDrug) && compatibles.get(j).equals(incompatibilities.get(i).drugOne.molecule))) {
+						compatible = false;
+					}
+					j++;
 				}
-				j++;
-			}
-			j = 0;
-			while (j < allergies.size() && compatible) {
-				if (allergies.get(j).drug.idDrug.equals(drug.idDrug)) {
-					compatible = false;
+				j = 0;
+				while (j < allergies.size() && compatible) {
+					if (allergies.get(j).drug.idDrug.equals(drug.idDrug)) {
+						compatible = false;
+					}
+					j++;
 				}
-				j++;
+				i++;
 			}
-			i++;
 		}
 		return compatible;
 	}

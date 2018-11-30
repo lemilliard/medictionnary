@@ -45,9 +45,11 @@ public class PrescriptionWS {
 	public Prescription createPrescription(@RequestBody PrescriptionParam prescriptionParam) throws MDException {
 		Prescription prescription = new Prescription();
 		prescription.idUser = prescriptionParam.idUser;
+		prescription.codePharmacy = prescriptionParam.codePharmacy;
+		DrugPrescription drugPrescription;
 		if (MedictionaryBackAppli.miniDAO.create().createEntity(prescription)) {
 			for (Drug drug : prescriptionParam.drugs) {
-				DrugPrescription drugPrescription = new DrugPrescription();
+				drugPrescription = new DrugPrescription();
 				drugPrescription.idDrug = drug.idDrug;
 				drugPrescription.idPrescription = prescription.idPrescription;
 				MedictionaryBackAppli.miniDAO.create().createEntity(drugPrescription);

@@ -1,6 +1,6 @@
 <?php
 // Récupération de l'user
-$is_login = ($_COOKIE["idUser"] != null);
+$is_login = ($_COOKIE["idUser"] != null && $_COOKIE["idUser"] != "undefined");
 
 if (basename($_SERVER['PHP_SELF']) != 'index.php') {
     ?>
@@ -29,7 +29,7 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php') {
 
             <!-- Brand -->
             <a class="navbar-brand" href="https://medictionnary.cgonline.fr">
-                <i class="fa fa-medkit ml-2"></i> <strong>MEDICTIONNARY</strong>
+                <i class="fa fa-medkit ml-2"></i> <strong>MEDICTIONARY</strong>
             </a>
 
             <!-- Collapse -->
@@ -48,12 +48,12 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php') {
                 </ul>
 
                 <?php if ($is_login) { ?>
-                    <a class="nav-link" href="/edit-user">
-                        <button type="button" class="btn  btn-white btn-rounded waves-effect" >
+                    <a class="nav-link" href="/compte">
+                        <button type="button" class="btn  btn-white btn-rounded waves-effect">
                             Mon compte
                         </button>
                     </a>
-                    <button type="button" id="logout-btn" class="btn  btn-warning btn-rounded waves-effect">
+                    <button type="button" id="logout-btn" class="btn btn-warning btn-rounded waves-effect">
                         Se déconnecter
                     </button>
                 <?php } else { ?>
@@ -61,12 +61,13 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php') {
                     <li><a href="register"  class="btn btn-link" data-toggle="modal" data-target="#modalRegisterForm">S'enregistrer</a></li>-->
                     <!--                    <a class="nav-link" href="/edit-user">Mon compte</a>-->
                     <button type="button" class="btn  btn-white btn-rounded waves-effect" data-toggle="modal"
-                            data-target="#modalLoginForm">Se connecter
+                            data-target="#modalLoginForm">
+                        Se connecter
                     </button>
                     <button type="button" class="btn  btn-warning btn-rounded waves-effect" data-toggle="modal"
-                            data-target="#modalRegisterForm">S'enregistrer
+                            data-target="#modalRegisterForm">
+                        S'enregistrer
                     </button>
-
                 <?php } ?>
             </div>
 
@@ -76,65 +77,46 @@ if (basename($_SERVER['PHP_SELF']) != 'index.php') {
     <?php if (basename($_SERVER['PHP_SELF']) === 'index.php') { ?>
         <!-- Full Page Intro -->
         <div class="view full-page-intro">
-
             <!--Video source-->
             <video class="video-intro" autoplay loop muted>
                 <source src="https://mdbootstrap.com/img/video/animation-intro.mp4" type="video/mp4"/>
             </video>
-
             <!-- Mask & flexbox options-->
             <div class="mask rgba-blue-light d-flex justify-content-center align-items-center">
-
                 <!-- Content -->
                 <div class="container">
-
                     <!--Grid row-->
                     <div class="row d-flex h-100 justify-content-center align-items-center wow fadeIn">
-
                         <!--Grid column-->
                         <div class="col-md-6 mb-4 white-text text-center text-md-left">
-
                             <h1 class="display-4 font-weight-bold" style="text-transform: uppercase;">Auto-diagnostic
                                 <br>en
-                                ligne & gratuit</h1>
-
+                                ligne gratuit</h1>
                             <hr class="hr-light">
-
                             <h2>
                                 <strong>Précommandez vos médicaments</strong>
                             </h2>
-
                             <p class="mb-4 d-none d-md-block">
-                                <strong>Etablissez un auto-diagnostic en ligne et précommandé vos médicaments à retirer
-                                    dans
-                                    la pharmacie la plus proche.</strong>
+                                <strong>Etablissez un auto-diagnostic en ligne et précommandez vos médicaments à retirer
+                                    dans la pharmacie la plus proche.</strong>
                             </p>
-
                             <a href="#autodiagnostic" class="btn btn-warning btn-rounded">Auto-diagnostic
                             </a>
-
-
                         </div>
                         <!--Grid column-->
 
                         <!--Grid column-->
                         <div class="col-md-6 col-xl-5 mb-4">
-
                             <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png" alt=""
                                  class="img-fluid">
-
                         </div>
                         <!--Grid column-->
-
                     </div>
                     <!--Grid row-->
-
                 </div>
                 <!-- Content -->
-
             </div>
             <!-- Mask & flexbox options-->
-
         </div>
         <!-- Full Page Intro -->
     <?php } ?>
